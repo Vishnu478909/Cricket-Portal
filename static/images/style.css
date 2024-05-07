@@ -1,0 +1,13 @@
+.body{
+    width: 1750px;
+    border: 15px solid black;
+    padding: 50px;
+    margin:20px;
+    text-align:center;
+    font-size: 99px;
+    color:black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    background-color: lightblue;
+}
