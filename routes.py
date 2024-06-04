@@ -30,22 +30,22 @@ def cricket(id):
     cricket = query_db("SELECT * FROM Team WHERE Team_id=?", (id,), one=True)
     return render_template("Cricketportal.html", Crickets=[cricket])
 
-@app.route('/players')
+@app.route('/Players')
 def players():
     Crickets = query_db("SELECT * FROM Player")
     return render_template("Players.html", Crickets=Crickets)
 
-@app.route('/ranking')
+@app.route('/Ranking')
 def ranking():
     Crickets = query_db("SELECT * FROM Test")
     return render_template("Ranking.html", Crickets=Crickets)
 
-@app.route('/statistics')
+@app.route('/Stats')
 def statistics():
     Crickets = query_db("SELECT * FROM odi")
     return render_template("Stats.html", Crickets=Crickets)
 
-@app.route('/teams')
+@app.route('/team')
 def teams():
     Crickets = query_db("SELECT * FROM T20,ODI,Test")
     return render_template("Teams.html", Crickets=Crickets)
