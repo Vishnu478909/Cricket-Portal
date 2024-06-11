@@ -45,3 +45,16 @@ body{
     font-weight: 800;
 
 }
+.box{
+    border:2px solid black;
+    padding: 10px;
+    display: inline-block;
+}
+
+.box span {
+    border-bottom: 1px solid black;
+    padding-bottom: 3px;
+    margin-bottom: -2px;
+    font-size: larger;
+
+}

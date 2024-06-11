@@ -27,8 +27,8 @@ def all_Cricket():
 
 @app.route('/Cricket/<int:id>')
 def cricket(id):
-    cricket = query_db("SELECT * FROM Team WHERE Team_id=?", (id,), one=True)
-    return render_template("Cricketportal.html", Crickets=[cricket])
+    Rankings = query_db("SELECT * FROM Team WHERE Team_id=?", (id,), one=True)
+    return render_template("Cricketportal.html", Rankings=Rankings)
 
 @app.route('/Players')
 def players():
