@@ -42,7 +42,7 @@ def ranking():
 
 @app.route('/Stats')
 def statistics():
-    Crickets = query_db("SELECT * FROM odi")
+    Crickets = query_db("SELECT * FROM Team")
     return render_template("Stats.html", Crickets=Crickets)
 
 @app.route('/team')
