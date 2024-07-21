@@ -58,3 +58,39 @@ body{
     font-size: larger;
 
 }
+
+.h2{
+    text-align: center;
+    padding: 20px;
+    background-color: darkblue;
+    color: white;
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+    border-radius: 8px;
+    box-shadow: 0  4px 8 px rgb(red, green, blue);
+}
+
+.cric{
+    font-size: large;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.vande{
+background-color: white;
+width: 700px;
+border:15px whitesmoke ;
+padding: 50px;
+margin: 30px;
+}
+
+.out{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1300px;
+
+}
