@@ -119,3 +119,36 @@ margin: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 }
+
+.player-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 2px black;
+    border-radius: 5px;
+    box-shadow: rgb(201, 43, 201);
+}
+
+.player{
+    display: flex;
+    flex-direction: column-reverse;
+    border: 1px black;
+    width: 30%;
+    padding: 10px;
+    border: 2px solid;
+    padding: 10px;
+    display: inline-block;
+}
+
+.player-info{
+    text-align: center;
+    border: #333;
+    border-radius: 1px solid black;
+    margin-bottom: 5px;
+    background-color: whitesmoke;
+}
+
+.back{
+    background-color: lightseagreen;
+}
