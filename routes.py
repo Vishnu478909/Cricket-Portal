@@ -40,6 +40,12 @@ def ranking():
     Crickets = query_db("SELECT * FROM Test")
     return render_template("Ranking.html", Crickets=Crickets)
 
+@app.route('/Record')
+def record():
+    Crickets = query_db("SELECT * FROM Test")
+    return render_template("Record.html" , Crickets=Crickets)
+
+
 @app.route('/Stats')
 def statistics():
     Crickets = query_db("SELECT * FROM Team")
