@@ -1,49 +1,124 @@
-.body{
-    width: 1750px;
-    border: 15px solid black;
-    padding: 50px;
-    margin:20px;
-    text-align:center;
-    font-size: 99px;
-    color:rgb(22, 20, 22);
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+
 body{
-    background-color:whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.Cric {
-    position: fixed;
-    top: 40; /* Adjust this value if needed */
-    left: 1100px; /* Adjust this value to move it to the right */
-    width: 440px;
-    height: 50px;
-    padding: 10px;
-    border: 5px solid rgb(201, 43, 201);
     margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#6bd034,#cc7620);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x:hidden ;
 }
 
-.donkey{
-    position: fixed; 
-    top: 320px;
-    left: 900px; 
-    font-size: 50px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font: underline;
+.body{
+    background: linear-gradient(135deg,#ff5722,#ff9800);
+    color: rgb(36, 12, 250);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
+    position: relative;
+    z-index: 1;
 
 }
 
-.dhoni{
+.Cric{
     position: fixed;
+    top:0;
+    width: 100%;
+    background: #e2b3a4;
+    padding: 10 px 0;
+    box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
+    text-align: center;
+    letter-spacing: 5px;
+    z-index: 1;
 }
 
-.virat{
-    position:fixed;
-    top: 420px;
-    left: 910px;
-    font-weight: 800;
+.Cric a{
+    color: #d8613d;
+    font-size: larger;
+    margin: 0 15px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition:  color 0.3s;
 
 }
+
+.Cric a:hover{
+    background: #ff5722; 
+    color: #ffffff; 
+}
+
+.hero{
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px;
+    border-radius: 0 0 40px 40px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px (rgb(rgb(244, 171, 171), green, blue));
+}
+.hero::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(216, 208, 208);
+    z-index: 0;
+}
+.hero h2{
+    font-size: 4em;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+}
+.card{
+    background: #ffffff;
+    border-radius:20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 900px;
+    margin: 20px 0;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  overflow: hidden;
+}
+
+img.Dhoni{
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba (0,0,0,0.3);
+    margin-top: 20px;
+}
+
+footer{
+    background:#c6bfbd;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
 .box{
     border:2px solid black;
     padding: 10px;

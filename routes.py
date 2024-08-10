@@ -35,6 +35,7 @@ def players():
     Crickets = query_db("SELECT * FROM Player")
     return render_template("Players.html", Crickets=Crickets)
 
+
 @app.route('/Ranking')
 def ranking():
     Crickets = query_db("SELECT * FROM Test")
