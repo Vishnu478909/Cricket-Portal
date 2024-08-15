@@ -56,6 +56,15 @@ def statistics():
 def teams():
     Crickets = query_db("SELECT * FROM T20,ODI,Test")
     return render_template("Teams.html", Crickets=Crickets)
-
+@app.route('/Review')
+def Review():
+    Crickets = query_db("UPDATE review SET comments = comments || ' Your additional comment here' WHERE comments;")
+@app.route('/sumbit', methods =['POST'])
+def sumbit_review():
+    name = request.form['name']
+    Review_text = request.form ['review']
+    rating = request.form ['review']
+    reviews.append ({'name':name, 'review': review_text, 'review': reveiw_text, 'rating':rating})
+    return render_template("Review.html", Crickets=Crickets)
 if __name__ == "__main__":
     app.run(debug=True)
