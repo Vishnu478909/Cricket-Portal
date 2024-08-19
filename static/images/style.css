@@ -146,22 +146,56 @@ footer p {
     border: 2px solid #333;
 
 }
-
-.vande{
-background-color:pink;
-width: 600px;
-border:15px whitesmoke ;
-padding: 50px;
-margin: 30px;
+tbody {
+    display: block;
+    background-color:lightgray;
 }
 
-.out{
+tr {
+    display: block;
+    margin-bottom: 20px; 
+}
+
+.team-container {
     display: flex;
-    justify-content: space-between;
-    margin: auto;
-    max-width: 1300px;
-
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    padding: 20px; 
 }
+
+.team-box {
+    background-color: rgb(165, 133, 241);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(50%-30%); 
+    box-sizing: border-box; 
+    max-width: calc(50%-20px); 
+    margin-bottom: 20px;
+}
+
+
+@media  {
+    .team-box {
+        flex: 1 1 calc(100% - 40px); 
+        max-width: calc(100% - 40px); 
+    }
+}
+
+.team-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.team-info {
+    margin-bottom: 10px; 
+    text-align: left;
+}
+
 
 .stats1{
     text-align: center;

@@ -2,7 +2,7 @@ from flask import Flask,request, render_template
 import sqlite3
 
 app = Flask(__name__)
-Database = 'Cricket.db'
+Database = 'Cricket.db.db'
 
 def query_db(query, params=()):
     conn = sqlite3.connect(Database)
@@ -32,7 +32,7 @@ def cricket(id):
 
 @app.route('/Players')
 def players():
-    Crickets = query_db("SELECT * FROM Player where name like ?")
+    Crickets = query_db("SELECT * FROM Player ")
     return render_template("Players.html", Crickets=Crickets)
 
 
@@ -46,11 +46,11 @@ def record():
     Crickets = query_db("SELECT * FROM Test")
     return render_template("Record.html" , Crickets=Crickets)
 
-
 @app.route('/Stats')
 def statistics():
     Crickets = query_db("SELECT * FROM Team")
     return render_template("Stats.html", Crickets=Crickets)
+
 
 @app.route('/team')
 def teams():
