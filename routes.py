@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask,request, render_template
 import sqlite3
 
 app = Flask(__name__)
-DATABASE = 'Cricket.db'
+Database = 'Cricket.db'
 
 def query_db(query, params=()):
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect(Database)
     cur = conn.cursor()
     cur.execute(query, params)
     results = cur.fetchall()
@@ -32,7 +32,7 @@ def cricket(id):
 
 @app.route('/Players')
 def players():
-    Crickets = query_db("SELECT * FROM Player")
+    Crickets = query_db("SELECT * FROM Player where name like ?")
     return render_template("Players.html", Crickets=Crickets)
 
 
@@ -58,13 +58,8 @@ def teams():
     return render_template("Teams.html", Crickets=Crickets)
 @app.route('/Review')
 def Review():
-    Crickets = query_db("UPDATE review SET comments = comments || ' Your additional comment here' WHERE comments;")
-@app.route('/sumbit', methods =['POST'])
-def sumbit_review():
-    name = request.form['name']
-    Review_text = request.form ['review']
-    rating = request.form ['review']
-    reviews.append ({'name':name, 'review': review_text, 'review': reveiw_text, 'rating':rating})
+    Crickets = query_db("Select * from review")
     return render_template("Review.html", Crickets=Crickets)
+
 if __name__ == "__main__":
     app.run(debug=True)
