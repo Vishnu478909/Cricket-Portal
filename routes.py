@@ -1,72 +1,88 @@
-from flask import Flask, render_template, request , redirect , session , url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
-import hashlib
-
+from functools import wraps
 
 app = Flask(__name__)
-app.secret_key= 'your_secret_key'
-
-
+app.secret_key = 'your_secret_key'
 
 @app.errorhandler(500)
 def internal_server_error(e):
-   return render_template("500.html")
+    return render_template("500.html"), 500
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template ("404.html"),404
+    return render_template("404.html"), 404
 
-def hash_password(password):
-  return hashlib.sha256(password.encode()).hexdigest()
 
-@app.route('/', methods =['GET', 'POST'])
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/', methods=['GET', 'POST'])
+@login_required
 def home():
-  if 'username' not in session:
-    return redirect (url_for('login'))
-  return render_template("Cricketportal.html")
+    return render_template("Cricketportal.html")
 
 @app.route('/login', methods=['GET', 'POST'])
-def login ():
-  username = None
-  if request.method == 'POST':
-    username = request.form.get('username')
-    password = request.form.get('password')
-  try:
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        try:
             conn = sqlite3.connect('Cricket.db.db')
             cur = conn.cursor()
+            
             cur.execute("SELECT password FROM User WHERE username = ?", (username,))
-            user = cur.fetchone()
+            sorted_password = cur.fetchone()
             conn.close()
-
-            if user and user[0] == hash_password(password):
+            
+            if sorted_password and sorted_password[0] == password:
                 session['username'] = username
-                return redirect(url_for('/login'))
+                return redirect(url_for('home'))
+            else:
+                return "Invalid username or password."
 
-  except Exception as e:
+        except Exception as e:
             print(f"Error: {e}")
- 
+            return "An error occurred. Please try again later."
+
+    return render_template('login.html')
 
 
-  return render_template ('login.html')
 
-@app.route ('/register', methods = ['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-  if request.method =='POST':
-   username = request.form ['username']
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirmed_password = request.form.get('confirmed_password')
 
-   password = request.form ['password']
+   
+        
+        try:
+            conn = sqlite3.connect('Cricket.db.db')
+            cur = conn.cursor()
+            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
+            conn.commit()
+            conn.close()
+            print("Your account has been created successfully, Please Log in")
+            return redirect(url_for('login'))
+            print("Your account has been created successfully, Please Log in")
+        except sqlite3.IntegrityError:
+            return "Username already exists. Please choose a different username."
+            
+    
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+            return "An error occurred. Please try again later."
 
-   hashed_password= hash_password(password)
- 
-  conn = sqlite3.connect ('Cricket.db.db')
-  cur = conn.cursor ()
-  cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, hashed_password))
-  conn.commit()
-  conn.close()
-
-
-
-  return render_template('register.html')
+    return render_template('register.html')
 
 
 
