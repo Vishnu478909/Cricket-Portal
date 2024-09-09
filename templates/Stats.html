@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats</title>
 </head>
-<body class="home-style">
+<body class="recordbody">
     <h1 class="stats1">International Cricket Statistics and Achievements</h1>
     <div class="ce">
         <h2 class="h2">Information about cricket</h2>
@@ -22,7 +22,6 @@
     </div>
     <div class="vande">
         <div class="out"></div>
-        <table>
             <tbody>
                 {% for team in Crickets %}
                 <tr>
@@ -31,8 +30,9 @@
                             {% if loop.index == 1 %}
                             <div class="team-name">
                                 <img src="/static/images/india 2.jpg" alt="Team Image">
-                                {{ team[0] }}
-                            </div>
+                                <div class="lines">                                {{ team[0] }}
+                                </div>
+                                          </div>
                             {% else %}
                             <div class="team-name">{{ team[0] }}</div><br>
                             {% endif %}
@@ -50,10 +50,11 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
     </div>
 </body>
 </html>
+<a href="/">Return to home page</a>
+
 <footer>
     <p>&copy; Cricket Portal Vishnu 2024. ALL Rights Reserved</p>
 </footer>

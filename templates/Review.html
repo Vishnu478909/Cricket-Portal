@@ -3,11 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Review</title>
+    <link rel="stylesheet" href="/static\images/style.css">
 </head>
 <body>
-    <H1>Please express your opnions</H1>
-    <form action="/submit" method="post">
+    <H1 class="stats1"> Review time</H1>
+    <div class="ce">
+        <h2 class="h2"> Rules</h2>
+        <p class="cric">  <strong>1. Objectivity:</strong><br>
+            - Avoid bias and be fair.<br>
+            - Support with evidence.<br><br>
+        
+            <strong>2. Specificity:</strong><br>
+            - Be clear and focused.<br>
+            - Use concrete examples.<br><br>
+        
+            <strong>3. Constructive Feedback:</strong><br>
+            - Aim for improvement.<br>
+            - Be respectful and highlight strengths.<br><br>
+        
+            <strong>4. Relevance:</strong><br>
+            - Focus on key aspects.<br>
+            - Avoid off-topic comments.<br><br>
+        
+            <strong>5. Clarity:</strong><br>
+            - Be concise and use simple language.<br>
+            - Structure logically.<br><br>
+
+            <strong>In this website, we have provided the option to delete comments that you dislike.</strong><br>
+            Please use this option responsibly and only delete comments that are inappropriate or irrelevant.<br>
+            <strong>We are trusting you to use this feature judiciously.</strong>
+        
+           
+    </div>
+    <form action="/addreview" method="post">
         <label for="Review">Review</label>
          <textarea id="Review" name="Review" rows="5" cols="60"></textarea><br>
 
@@ -23,7 +52,24 @@
          </select> <br> <br>
         <input type="submit" value="submit">
 
+     </form>
+    <h2>Existing Reviews:</h2>
+    <ul>
+        {% for review in Crickets %}
+            <li>{{ review[1] }} - Rating: {{ review[2] }}
+
+            </li>
+        <li>
+    <form action="/deletereview" method="post" >
+        <input type="hidden" name="review_id" value="{{ review[0]}}">
+        <input type="submit" value="Delete">
+
     </form>
+        {% endfor %}
+    </ul>
+    <footer>
+        <p>&copy; Cricket Portal Vishnu 2024. ALL Rights Reserved</p>
+    </footer>
 
 </body>
 </html>

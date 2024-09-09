@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg,rgb(202, 233, 187),#ce530d);
+    background: linear-gradient(135deg,#ff9a9e 0%,#fbd786 50%,#f7797d 100%);
     color: #333;
     display: flex;
     flex-direction: column;
@@ -12,15 +12,23 @@
 }
 
 .body{
-    background: linear-gradient(135deg,#ff5722,#ff9800);
-    color: rgb(36, 12, 250);
-    padding: 20px;
+    background: linear-gradient(135deg,#b9ac8f 0%, #f7797d 100%);
+    color: #333;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
+    text-decoration: solid;
+    text-overflow: clip;
+    letter-spacing: 7px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgb(106, 68, 68);
     position: relative;
     z-index: 1;
+    border-radius: 8px;
+    background-size: 200%;
+    animation: 15s;
 
 }
+
 
 .Cric{
     position: fixed;
@@ -102,6 +110,50 @@ footer p {
     font-size: 1em;
 }
 
+.error-body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eae2e2;
+    text-align: center;
+    padding: 60px;
+}
+
+.error{
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10;
+}
+h1{
+    font-size: 100px;
+    margin: 0;
+    color: #e74c3c;
+}
+
+h2{
+    margin: 20px;
+    font-size: 24px;
+
+}
+
+p{    font-size: 20px;
+    margin: 10px 0;
+}
+
+a{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #db5151;
+    background-color: #3498db;
+    border-radius: 8px;
+}
+a:hover{
+    background-color:lightblue;
+}
+
+
 .box{
     border:2px solid black;
     padding: 10px;
@@ -177,7 +229,7 @@ tr {
 }
 
 
-@media  {
+@media  {max-width::after :268px;}{
     .team-box {
         flex: 1 1 calc(100% - 40px); 
         max-width: calc(100% - 40px); 
@@ -295,19 +347,19 @@ padding: 0;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
-    color: black;}
+    background-color:lightgrey;
+    color:darkgray;}
 
 .recordh1{
     text-align: center;
-    color: #f7f3f3;
+    color: #ffffff;
     margin: 20px;
     font-size: xx-large;
-    background-color: #0056b3;
+    background-color: #007bff;
     font-weight: 800;
     margin-top: 20px;
     margin-bottom: 20px;
-    letter-spacing: 7px;
+    letter-spacing: 2px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
@@ -318,7 +370,7 @@ padding: 0;
 
 .recorddetails{
     background-color: #ffffff;
-    border: 1px solid #e2b3a4;
+    border: 1px solid lightgray;
     border-radius: 8px;
     margin: 20px auto;
     width:auto;
@@ -328,16 +380,17 @@ padding: 0;
 }
 
 .recorddetails :hover{
-    background-color: #f0f8ff;
+    background-color:lightblue;
     box-shadow: 0 8ox 16px rgba(0, 0,0,2);
 }
 
 .recordsummary {
  font-size: 1.3em;
  font-weight: 600;
+ margin-bottom: 10px ;
  cursor: pointer;
  padding: 15px;
- background-color: #007bff;
+ background-color: #5ea4ee;
  color: whitesmoke;
  border: none;
  outline: none;
@@ -350,14 +403,15 @@ padding: 0;
     padding: 10px;
     background-color: black;
     line-height: 1.7;
+    border-radius: 8px;
 }
 p{
     margin-bottom: 1em;
 }
 
 a{
-    color: #007bff;
-    text-decoration: none;
+    color: #0e1012;
+    text-decoration: underline;
 }
  a.hover{
     text-decoration: underline;
@@ -377,8 +431,97 @@ font-size: 1.1em;
 padding: 10px;
 }
 }
-.Inida2{
+
+.recordh2{
+
+ font-family: 'Courier New', Courier, monospace;
+ font-size: 50px; 
+ font-weight: bolder;
+line-height:1.6em;
+color: #1f1717;
+background-color: #fdf2f2;
+padding: auto;
+border-radius: 8px;
+box-shawdow: 0 4px 8px rgba ;  
+text-align: center;
+
+
+}
+.lines{
+    white-space: pre-line;
+        font-weight: bolder;
+        font-size: 1.2em;
+    line-height:1.6em;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: auto;
+     border-radius: 8px;
+    box-shawdow: 0 4px 8px rgba ;  
+     text-align: center; 
+    }
+
+details summary{
+    list-style:none ;
+}
+
+.Ranking-grid{
+    display: flex;
+    flex-direction: column;
+    gap:11px;
+    padding: 10px;
+}
+
+.Brid{
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+    gap: 10px;
+    align-items: center;
+    color:rgb(227, 227, 234);
+
+}
+
+.item{
+    background-color: rgba(red, green, blue, alpha);
+    text-align: center;
+    padding: 25px;
+    border: 1px solid #865454;
+    font-size: larger;
+    box-shadow: 0 4px 8px rgb(165, 133, 241);
+}
+button {
+    padding: 60px 90px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px;
     position: relative;
-    left: 1300px;
-   width: auto;
+    bottom: 45px;
+      }
+.Rank-h1{
+    text-align: center;
+    font-size: 150px;
+}
+
+.p{
+    color: #0056b3;
+    font-weight: bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serifs;
+    font-size: 32px;
+    line-height: 1em;
+    color: #f8f0f0;
+    margin: 20px;
+    text-align: center;
+    border: 2px solid rgb(10, 9, 9);
+    padding: 10px;
+    border-radius: 10px;
+    }
+.Rbody{
+    
+    background-image:url(https://media.gettyimages.com/id/109290614/photo/dhaka-bangladesh-virat-kohli-of-india-raises-his-bat-on-reaching-his-century-during-the.jpg?s=612x612&w=0&k=20&c=yiu0xiZI1VLNx-7G_rz9lr0_I4x2GIj-IGeqGig0oXI=);
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
 }
