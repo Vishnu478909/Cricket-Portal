@@ -101,6 +101,16 @@
             font-size: 14px;
 
     }
+    .errormessage{
+        color: darkred;
+        background-color: #fdd;
+        border: 1px solid red;
+        padding: 10px;
+        margin-bottom: 20px ;
+        border-radius: 4px;
+        text-align: center;
+
+    }
      </style>
 </head>
 <body>
@@ -108,9 +118,12 @@
     <div class="content">
         <div class="box">
             {% block content %}
-
+            {% if error_message %}
+            {% endif %}
             {% endblock %}
+        
         </div>
+
     </div>
     <footer>
         <p>&copy; Cricket Portal Vishnu 2024. All Rights Reserved</p>

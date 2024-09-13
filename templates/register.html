@@ -5,6 +5,11 @@
     <div class="login-box">
         <p>To access this cricket portal, please register an account.</p>
         <h1>Register</h1>
+        {% if error_message %}
+        <div class="errormessage">
+            {{ error_message }}
+        </div>
+    {% endif %}
         <form method="POST" action="/register">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required placeholder="Enter your username">

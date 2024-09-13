@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template, request , redirect , session , url_for
 import sqlite3
 
@@ -52,6 +53,7 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    error_message = None # Intilisase error page
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -59,6 +61,10 @@ def register():
 
         if password != confirm_password:
             return "Passwords do not match."
+        elif len(password) < 7:
+           return (" Password should be atleast 7 characters long")
+        elif not re.search(r'[A-Z]',password):
+           return(" Password should atleast one uppecase letter")
 
         try:
             conn = sqlite3.connect('Cricket.db.db')
@@ -76,6 +82,10 @@ def register():
     return render_template('register.html')
 
 
+@app.route (('/logout'))
+def  logout():
+   session.pop ('username', None) # Remove the username from the session
+   return redirect(url_for('logout')) # redirect them to the login page
 
 
 @app.route('/about')

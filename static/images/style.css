@@ -229,12 +229,6 @@ tr {
 }
 
 
-@media  {max-width::after :268px;}{
-    .team-box {
-        flex: 1 1 calc(100% - 40px); 
-        max-width: calc(100% - 40px); 
-    }
-}
 
 .team-name {
     font-size: 24px;
@@ -525,3 +519,4 @@ button {
     background-size: cover;
     align-items: center;
 }
+
