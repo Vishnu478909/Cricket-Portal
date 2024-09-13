@@ -28,6 +28,9 @@ def login_required(f):
 def home():
     return render_template("Cricketportal.html")
 
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -35,14 +38,13 @@ def login():
         password = request.form.get('password')
 
         try:
-            conn = sqlite3.connect('Cricket.db.db')
+            conn = sqlite3.connect('Cricket.db')
             cur = conn.cursor()
-            
             cur.execute("SELECT password FROM User WHERE username = ?", (username,))
-            sorted_password = cur.fetchone()
+            stored_password = cur.fetchone()
             conn.close()
-            
-            if sorted_password and sorted_password[0] == password:
+
+            if stored_password and stored_password[0] == password:
                 session['username'] = username
                 return redirect(url_for('home'))
             else:
@@ -54,8 +56,6 @@ def login():
 
     return render_template('login.html')
 
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -63,27 +63,23 @@ def register():
         password = request.form.get('password')
         confirmed_password = request.form.get('confirmed_password')
 
-   
-        
+        if password != confirmed_password:
+            return "Passwords do not match."
+
         try:
-            conn = sqlite3.connect('Cricket.db.db')
+            conn = sqlite3.connect('Cricket.db')
             cur = conn.cursor()
             cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
             conn.commit()
             conn.close()
-            print("Your account has been created successfully, Please Log in")
             return redirect(url_for('login'))
-            print("Your account has been created successfully, Please Log in")
         except sqlite3.IntegrityError:
             return "Username already exists. Please choose a different username."
-            
-    
         except sqlite3.Error as e:
             print(f"Database error: {e}")
             return "An error occurred. Please try again later."
 
     return render_template('register.html')
-
 
 
 
