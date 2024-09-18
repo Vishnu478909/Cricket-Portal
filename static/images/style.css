@@ -33,7 +33,7 @@
     position: fixed;
     top:0;
     width: 100%;
-  
+   background:linear-gradient(rgb(35, 196, 225),rgb(165, 228, 16));
     padding: 10 px 0;
     box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
     text-align: center;
