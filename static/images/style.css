@@ -520,3 +520,76 @@ button {
     align-items: center;
 }
 
+.player-form{
+    background-color: rgba(255, 255, 255, 0.9); /*white */
+    padding: 20px;
+    border-radius: 8px; /*  corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /*shadow */
+    margin: 20px; /* Space around the form */
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+}
+
+form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 20px;
+    widows: 100%;
+}
+
+.form-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+}
+
+.form-button {
+    position: relative;
+    bottom: 10px;
+    background-color: #865454; 
+    color: white; 
+    border: none; 
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: larger; 
+    transition: background-color 0.3s; 
+}
+.login{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+
+}
+.login-box{
+    background: white;
+    padding: 60px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba (0,0,0,0.2);
+    max-width: 400px;
+    width: 100%;
+
+}
+
+.cc {
+    text-align: center;
+    text-decoration: double;
+    font-size: xx-large;
+    color: whitesmoke;
+  
+}
+
+.player-body{
+    background-image:url(https://media.gettyimages.com/id/1789432444/photo/bangalore-india-virat-kohli-of-india-celebrates-the-wicket-of-scott-edwards-of-netherlands.jpg?s=612x612&w=0&k=20&c=YRblUOtk9wBCtQ3Knx11A9777Zv_EcJfnTxCIT-wxaY=); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}

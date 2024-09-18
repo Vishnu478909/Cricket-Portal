@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/images/style.css">
-    <title>Document</title>
+    <title>Players</title>
 </head>
-<form action="{{ url_for('addplayer') }}" method="post">
-    <input text" name="player_name" placeholder="Player Name" required>
-    <input type="text" name="role" placeholder="Role" required>
-    <input type="number" name="matches" placeholder="Matches" required>
-    <button type="submit">Add Player</button>
-</form>
 
-<body>
+   
+
+<body class="player-body">
+    <h1 class="stats1">Cricket Players</h1>
+    <p class="cc"> Add your faviourate player!!!</p>
+    <div class="login">
+        <div class="login-box">
+    <form class = "Player-form" action="{{ url_for('addplayer') }}" method="post">
+        <input  class = "form-input" type = "text" name="player_name" placeholder="Player Name" required>
+        <input class = "form-input" type="text" name="role" placeholder="Role" required>
+       
+        <button class = "form-button" type="submit">Add Player</button>
+    </form>
+    </div>
+    </div>
     <table>
         <tbody>
+            
             <div class="Ranking-grid">    
                 {% for Cricket in Crickets %}
                 <div class="Brid">
