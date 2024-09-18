@@ -4,8 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review</title>
-    <link rel="stylesheet" href="/static\images/style.css">
+    <link rel="stylesheet" href="/static/images/style.css">
 </head>
+<style>
+    body{
+        background-image: url(https://media.gettyimages.com/id/1438367013/photo/adelaide-australia-indian-players-celebrate-the-win-during-the-icc-mens-t20-world-cup-match.jpg?s=612x612&w=0&k=20&c=De14zidB8w95l0mRm1VOIr0E_nN2elW3u_CZFd0tEY0=);
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+    }
+    form{
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    label{
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 40px;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 400;
+    }
+    textarea{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    select{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: bottom;
+        font-size: 14px;
+    }
+
+    input {
+        background-color: rgb(74, 205, 181);
+        color:white;
+        border:none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    
+</style>
 <body>
     <H1 class="stats1"> Review time</H1>
     <div class="ce">
@@ -40,7 +92,7 @@
         <label for="Review">Review</label>
          <textarea id="Review" name="Review" rows="5" cols="60"></textarea><br>
 
-         <label for="rating"> rating</label>
+         <label for="rating"> Rating</label>
          <select id="rating" name="rating">
             <option value="5">5</option>
             <option value="5">4</option>
@@ -53,20 +105,14 @@
         <input type="submit" value="submit">
 
      </form>
-    <h2>Existing Reviews:</h2>
-    <ul>
-        {% for review in Crickets %}
-            <li>{{ review[1] }} - Rating: {{ review[2] }}
-
-            </li>
-        <li>
-    <form action="/deletereview" method="post" >
-        <input type="hidden" name="review_id" value="{{ review[0]}}">
-        <input type="submit" value="Delete">
-
-    </form>
-        {% endfor %}
-    </ul>
+     <div class="ce">
+        <h2 class="h2">Existing Reviews:</h2>
+        <ul>
+            {% for review in Crickets %}
+                <li class="cric">{{ review[1] }} - Rating: {{ review[2] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
     <footer>
         <p>&copy; Cricket Portal Vishnu 2024. ALL Rights Reserved</p>
     </footer>
