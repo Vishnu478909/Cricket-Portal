@@ -16,13 +16,12 @@ def internal_server_error(e):
 def page_not_found(e):
     return render_template ("404.html"),404
 
-
-
-@app.route('/', methods =['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
-  if 'username' not in session:
-    return redirect (url_for('login'))
-  return render_template("Cricketportal.html")
+    if 'username' not in session:  # Check if the user is logged in
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+    return render_template("Cricketportal.html")  # Show cricket portal if logged in
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -81,11 +80,11 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    session.clear()  # Clear all session data
+    return redirect(url_for('login'))  # Redirect to the login page
 
-@app.route (('/logout'))
-def  logout():
-   session.pop ('username', None) # Remove the username from the session
-   return redirect(url_for('logout')) # redirect them to the login page
 
 @app.route(('/registartionsucessfull'))
 def registartionsucessfull():
@@ -216,7 +215,7 @@ def Record():
 def Statistics():
   conn = sqlite3.connect('Cricket.db.db')
   cur = conn.cursor()
-  cur.execute("SELECT Information FROM Statistics ")
+  cur.execute("select information from statistics ")
   Crickets = cur.fetchall()
   return render_template("Stats.html",Crickets=Crickets)
 
