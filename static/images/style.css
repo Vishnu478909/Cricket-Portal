@@ -200,7 +200,7 @@ a:hover{
 }
 tbody {
     display: block;
-    background-color:lightgray;
+   
 }
 
 tr {
@@ -334,6 +334,14 @@ padding: 0;
     }
 }
 
+.statsbody{
+    background-image: url(https://media.gettyimages.com/id/1692871520/photo/topshot-indias-captain-rohit-sharma-and-his-teammate-virat-kohli-run-between-the-wickets.jpg?s=612x612&w=0&k=20&c=h6tAbPdP5pSjYYVaD43yNBP06JpokjF9BmEf7fe7BKo=);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 
 
 .recordbody {
@@ -341,8 +349,8 @@ padding: 0;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color:lightgrey;
-    color:darkgray;}
+    background-color: light blueviolet;
+   }
 
 .recordh1{
     text-align: center;
@@ -363,8 +371,6 @@ padding: 0;
 }
 
 .recorddetails{
-    background-color: #ffffff;
-    border: 1px solid lightgray;
     border-radius: 8px;
     margin: 20px auto;
     width:auto;
@@ -470,7 +476,7 @@ details summary{
     grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
     gap: 10px;
     align-items: center;
-    color:rgb(227, 227, 234);
+    color:rgb(241, 232, 232);
 
 }
 
@@ -517,7 +523,8 @@ button {
     background-image:url(https://media.gettyimages.com/id/109290614/photo/dhaka-bangladesh-virat-kohli-of-india-raises-his-bat-on-reaching-his-century-during-the.jpg?s=612x612&w=0&k=20&c=yiu0xiZI1VLNx-7G_rz9lr0_I4x2GIj-IGeqGig0oXI=);
     background-repeat: no-repeat;
     background-size: cover;
-    align-items: center;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .player-form{
