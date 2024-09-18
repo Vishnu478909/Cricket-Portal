@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static\images/style.css">
+    <link rel="stylesheet" href="/static/images/style.css">
     <title>Document</title>
 </head>
+<form action="{{ url_for('addplayer') }}" method="post">
+    <input text" name="player_name" placeholder="Player Name" required>
+    <input type="text" name="role" placeholder="Role" required>
+    <input type="number" name="matches" placeholder="Matches" required>
+    <button type="submit">Add Player</button>
+</form>
+
 <body>
     <table>
         <tbody>
@@ -17,6 +24,13 @@
                     <div class="item">{{ Cricket[2] }}</div>
                     <div class="item">{{ Cricket[3] }}</div>
                     <div class="item">{{ Cricket[4] }}</div>
+                    <div class="item">{{ Cricket[5] }}</div>
+                    <div class="item">{{ Cricket[6] }}</div>
+                    <div class="item">{{ Cricket[7] }}</div>
+                    <div class="item">{{ Cricket[8] }}</div>
+
+                  
+                  
                   
                             </div>
                             {% endfor %}

@@ -103,7 +103,7 @@ def Players():
   cur.execute("""SELECT 
     Player.PlayerId, 
     Player.PlayerName, 
-    Player."Role ",
+    Player.Role,
     Matches.Matches,
     Matches.Average,
     Matches.Innings,
@@ -115,11 +115,70 @@ def Players():
 INNER JOIN 
     Matches 
 ON 
-    Player.PlayerId = Matches.PlayerId;
+    Player.PlayerId = Matches.PlayerId
+WHERE
+  Player.Verified = 1; --only select approved players
 """)
   Crickets= cur.fetchall()
   return render_template("Players.html",Crickets=Crickets)
 
+@app.route('/player', methods=['GET', 'POST'])
+def addplayer():
+    conn = sqlite3.connect('Cricket.db.db')
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        player_name = request.form['player_name']
+        role = request.form['role']
+        matches = request.form['matches']
+      
+
+        # Insert the new player into the PendingPlayers table
+        cur.execute("""
+            INSERT INTO PendingPlayers (PlayerName, Role) 
+            VALUES (?, ?)
+        """, (player_name, role))
+        
+        conn.commit()
+        conn.close()
+        return redirect(url_for('Players'))  # Redirect to the Players page after adding
+    
+@app.route('/verify_players')
+def verify_plsyers():
+   conn = sqlite3.connect('Cricket.db.db')
+   cur = conn.cursor()
+
+   cur.execute(" Select * From Player")
+   player = cur.fetchall()
+
+   return render_template("verify_players.html", players = player)
+
+@app.route('/approve_player/<int:player_id>')
+def approve_player(player_id):
+    conn = sqlite3.connect('Cricket.db.db')
+    cur = conn.cursor()
+
+    # Retrieve the player details from PendingPlayers
+    cur.execute("SELECT PlayerName, Role FROM PendingPlayers WHERE id=?", (player_id,))
+    player = cur.fetchone()
+
+    if player:
+        player_name, role = player
+        # Insert the player into the Player table and set Verified to 1
+        cur.execute("""
+            INSERT INTO Player (PlayerName, Role, Verified) 
+            VALUES (?, ?, 1)
+        """, (player_name, role))
+
+        # Delete the player from PendingPlayers
+        cur.execute("DELETE FROM PendingPlayers WHERE id=?", (player_id,))
+    
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('verify_players'))
+
+ 
 @app.route('/Ranking')
 def Ranking():
     format= request.args.get ('format','ALL').upper()
@@ -183,35 +242,6 @@ def add_review():
   conn.close()
   return redirect('/Review')
 
-@app.route('/deletereview',methods= ['POST'])
-def delete_review():
-  # print for debugging purposes 
-  print("form keys:", request.form.keys())
-  print("form data:", request.form)
-
-  review_id = request.form ['review_id']
- 
-  if review_id is None :
-   return redirect ('/404/missing_review_review_id')
-  
-  try:
-    review_id = int(review_id)
-  except:
-    return redirect ('/404/invalid_review_review_id')
-  
- 
-  conn = sqlite3.connect('Cricket.db.db')
-  cur= conn.cursor()
-  cur.execute ("SELECT COUNT(*) FROM Review WHERE Id = ? AND Is_Deleted = 0", (review_id,))
-  if cur.fetchone() [ 0] == 0:
-    conn.close()
-    return redirect('/404')
-
-  cur.execute("UPDATE Review SET Is_Deleted = 1 WHERE Id = ?", (review_id,))
-  conn.commit()
-  conn.close()
-
-  return redirect('/Review')
 
 if __name__ == "__main__":
   app.run(debug=True)
