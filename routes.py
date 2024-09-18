@@ -72,7 +72,7 @@ def register():
             cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
             conn.commit()
             conn.close()
-            return redirect(url_for('login'))
+            return redirect(url_for('registartionsucessfull'))
         except sqlite3.IntegrityError:
             return "Username already exists. Please choose a different username."
         except sqlite3.Error as e:
@@ -87,6 +87,9 @@ def  logout():
    session.pop ('username', None) # Remove the username from the session
    return redirect(url_for('logout')) # redirect them to the login page
 
+@app.route(('/registartionsucessfull'))
+def registartionsucessfull():
+   return render_template('registeration.html')
 
 @app.route('/about')
 def about():
