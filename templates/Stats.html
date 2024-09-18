@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="/static/images/style.css"> <!-- Use forward slashes for URLs -->
+    <link rel="stylesheet" href="/static/images/style.css"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats</title>
 </head>
@@ -13,7 +13,7 @@
     <div class="ce">
         <h2 class="h2">Information about cricket</h2>
         <p class="cric">
-        
+            Cricket is a popular team sport played between two teams of 11 players each, with the primary objective of scoring more runs than the opposing team.<br> The game is played on a circular or oval field featuring a 22-yard pitch at the center.<br> Cricket has several formats, including Test matches, which last up to five days; One Day Internationals (ODIs), where each team bats for a maximum of 50 overs; and Twenty20 (T20) matches, which are limited to 20 overs per team.<br> During the game, the batting team aims to score runs by hitting the ball and running between the wickets, while the fielding team tries to get the batters out through various means, such as catching the ball or hitting the stumps with the ball.<br> The International Cricket Council (ICC) governs the sport, organizing major tournaments like the Cricket World Cup.<br> Cricket enjoys immense popularity in countries such as India, Australia, England, Pakistan, South Africa, and the West Indies.
         </p>
     </div>
 
@@ -25,10 +25,10 @@
                     <td class="team-container">
                         <div class="team-box">
                             <div class="team-name">
-                                <img src="/static/images/{{ team[-1] }}" alt="Team Image" style="max-width: 100%; border-radius: 10px;">  <!-- Dynamically load the team image -->
                                 <div class="lines">{{ team[0] }}</div>
                             </div>
-                            <div class="team-info">{{ team[2] }}</div>
+
+                            <div class="team-info"> {{team[2] }}</div>
                             <div class="team-info">{{ team[4] }}</div>
                             <div class="team-info">{{ team[5] }}</div>
                             <div class="team-info">{{ team[6] }}</div>
