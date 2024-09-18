@@ -200,7 +200,7 @@ a:hover{
   font-size: 18px;
     justify-content: space-around;
     flex-wrap: wrap;
-    max-width: 500px;
+    max-width: 400px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid #333;
@@ -219,24 +219,40 @@ tr {
 .team-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center; 
     padding: 20px; 
 }
 
 .team-box {
     position: relative;
-    left: 700px;
+    left: 300px;
     background-color: rgb(165, 133, 241);
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
     border: 2px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(100% - 40px);
+    max-width: 600px;
+    margin: 15px auto;
     box-sizing: border-box;
-    max-width: calc(400% - 40px);
-    margin-bottom: 30px;
 }
+
+@media (max-width: 768px) {
+    .team-box {
+        padding: 15px;
+        max-width: 90%;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-box {
+        padding: 10px;
+        max-width: 95%;
+        margin: 5px auto;
+    }
+}
+
 
 
 .team-name {
@@ -614,7 +630,7 @@ form{
 }
 
 .player-body{
-    background-image:url(https://media.gettyimages.com/id/1789432444/photo/bangalore-india-virat-kohli-of-india-celebrates-the-wicket-of-scott-edwards-of-netherlands.jpg?s=612x612&w=0&k=20&c=YRblUOtk9wBCtQ3Knx11A9777Zv_EcJfnTxCIT-wxaY=); 
+    background-image:url(https://media.gettyimages.com/id/109290614/photo/dhaka-bangladesh-virat-kohli-of-india-raises-his-bat-on-reaching-his-century-during-the.jpg?s=612x612&w=0&k=20&c=yiu0xiZI1VLNx-7G_rz9lr0_I4x2GIj-IGeqGig0oXI=); 
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -625,5 +641,11 @@ form{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 40px;
     font-weight: bolder;
+    text-align: center;
+}
+.recordp{
+     color: black;
+     font-size: 40px;
+    font-weight: 900;
     text-align: center;
 }
