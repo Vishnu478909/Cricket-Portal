@@ -1,4 +1,3 @@
-
 .home-style{
     margin: 0;
     padding: 0;
@@ -34,7 +33,7 @@
     position: fixed;
     top:0;
     width: 100%;
-    background: #e2b3a4;
+  
     padding: 10 px 0;
     box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
     text-align: center;
@@ -55,6 +54,11 @@
 .Cric a:hover{
     background: #ff5722; 
     color: #ffffff; 
+}
+
+.cric{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
 }
 
 .hero{
@@ -225,7 +229,7 @@ tr {
 }
 
 .team-box {
-    position: relative;
+    position:relative;
     left: 300px;
     background-color: rgb(165, 133, 241);
     padding: 20px;
@@ -491,8 +495,8 @@ text-align: center;
     color: #333;
     background-color: #f9f9f9;
     padding: auto;
+     box-shawdow: 0 4px 8px rgba ;  
      border-radius: 8px;
-    box-shawdow: 0 4px 8px rgba ;  
      text-align: center; 
     }
 
@@ -648,4 +652,8 @@ form{
      font-size: 40px;
     font-weight: 900;
     text-align: center;
+}
+
+.footerp{
+    color: white;
 }
