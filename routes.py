@@ -1,5 +1,5 @@
 import re
-from flask import Flask, render_template, request , redirect , session , url_for
+from flask import Flask, render_template, request , redirect , session , url_for,flash
 import sqlite3
 
 
@@ -129,7 +129,7 @@ def addplayer():
     if request.method == 'POST':
         player_name = request.form['player_name']
         role = request.form['role']
-        matches = request.form['matches']
+        
       
 
         # Insert the new player into the PendingPlayers table
@@ -140,6 +140,7 @@ def addplayer():
         
         conn.commit()
         conn.close()
+        flash('Player will be added after profanity check.') 
         return redirect(url_for('Players'))  # Redirect to the Players page after adding
     
 @app.route('/verify_players')
@@ -207,7 +208,21 @@ def Ranking():
 def Record():
   conn = sqlite3.connect('Cricket.db.db')
   cur = conn.cursor()
-  cur.execute("SELECT DISTINCT tr.team AS country,tr.record_test,o.record_odi, t.record_value FROM test_records tr LEFT JOIN odi_records o ON tr.teamid = o.teamid LEFT JOIN t20_records t ON tr.team = t.team ORDER By  tr.team;",)
+  cur.execute("""SELECT DISTINCT 
+    t.TeamName AS country,
+    tr.record_test,
+    o.record_odi,
+    t.record_value 
+FROM 
+    test_records tr
+LEFT JOIN 
+    odi_records o ON tr.Team_id = o.Team_id
+LEFT JOIN 
+    t20_records t ON tr.Team_id = t.Team_id
+LEFT JOIN 
+    Teams t ON tr.Team_id = t.Teamid
+ORDER BY  
+    t.TeamName""",)
   Crickets = cur.fetchall()
   return render_template("Record.html",Crickets=Crickets)
 

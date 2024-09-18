@@ -11,15 +11,32 @@
 
 <body class="player-body">
     <h1 class="stats1">Cricket Players</h1>
-    <p class="cc"> Add your faviourate player!!!</p>
+    <p class="cc">   Add your favorite player's name and role.<br>
+        Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
+        Once confirmed, their details will be added to our records.</p>
+
+    
     <div class="login">
         <div class="login-box">
+            <p class="playerp">Player information<p>
     <form class = "Player-form" action="{{ url_for('addplayer') }}" method="post">
         <input  class = "form-input" type = "text" name="player_name" placeholder="Player Name" required>
         <input class = "form-input" type="text" name="role" placeholder="Role" required>
        
         <button class = "form-button" type="submit">Add Player</button>
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages">
+            <ul>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
     </form>
+
     </div>
     </div>
     <table>

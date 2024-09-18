@@ -4,44 +4,39 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="/static/images/style.css">
-
-   <title>Document</title>
+   <title>Records</title>
+ 
 </head>
 <body class="recordbody">
-   <h1 class="recordh1">International Cricket teams Recods</h1>
+   <h1 class="recordh1">International Cricket Teams Records</h1>
+   <p class="cc"> CLICK ON YOUR FAVOURITE TEAM TO SEE THE RECORDS</p>
+   
+
    {% for team in Crickets %}
-   <tr>
+   <details class="recorddetails">
+       <summary class="recordsummary">
+           <div class="lines">{{ team[0] }}</div>
+       </summary>
 
-       <td class="recorddetails">
-           
-              
-              <details>
-               <summary class="recordsummary"><div class="lines">{{ team[0] }}</div></summary>
-               <h2 class="recordh2">Test Cricket Records</h2>               
+       <h2 class="recordh2">Test Cricket Records</h2>
+       <div class="lines">{{ team[1] }}</div>
 
-               <div class="lines">{{ team[1]}}</div><br>
-               <h3 class="recordh2">ODI Cricket Records</h3> 
-               <div class="lines">{{ team[2] }}</div>
-               <br>
-               <h4 class="recordh2">T20 Cricket Records</h4> 
-               <div class="line
-               
-               
-            
-   ">{{ team[3] }}</div>
-               <div class="lines">{{ team[4] }}</div>
-               <div class="lines">{{ team[5] }}</div>
-               <div class="lines">{{ team[6] }}</div>
-               <div class="lines">{{ team[7] }}</div>
-               <div class="lines" >{{ team[8] }}</div>
-               <div class="lines">{{ team[9] }}</div>
+       <h3 class="recordh2">ODI Cricket Records</h3>
+       <div class="lines">{{ team[2] }}</div>
 
-         </details> 
-       </td>
-   </tr>
+       <h4 class="recordh2">T20 Cricket Records</h4>
+       <div class="lines">{{ team[3] }}</div>
+       <div class="lines">{{ team[4] }}</div>
+       <div class="lines">{{ team[5] }}</div>
+       <div class="lines">{{ team[6] }}</div>
+       <div class="lines">{{ team[7] }}</div>
+       <div class="lines">{{ team[8] }}</div>
+       <div class="lines">{{ team[9] }}</div>
+   </details>
    {% endfor %}
+
    <footer>
       <p>&copy; Cricket Portal Vishnu 2024. ALL Rights Reserved</p>
-  </footer>
+   </footer>
 </body>
 </html>
