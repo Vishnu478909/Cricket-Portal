@@ -97,7 +97,23 @@ def about():
 def Players():
   conn = sqlite3.connect('Cricket.db.db')
   cur = conn.cursor()
-  cur.execute("SELECT * FROM Player")
+  cur.execute("""SELECT 
+    Player.PlayerId, 
+    Player.PlayerName, 
+    Player."Role ",
+    Matches.Matches,
+    Matches.Average,
+    Matches.Innings,
+    Matches.Runs,
+    Matches.Wickets,
+    Matches.Team
+  FROM 
+    Player
+INNER JOIN 
+    Matches 
+ON 
+    Player.PlayerId = Matches.PlayerId;
+""")
   Crickets= cur.fetchall()
   return render_template("Players.html",Crickets=Crickets)
 
