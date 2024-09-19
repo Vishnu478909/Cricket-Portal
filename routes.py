@@ -18,11 +18,11 @@ def page_not_found(e):
 # Home route
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if 'username' not in session:  # Check if the user is logged in
-        return redirect(url_for('login'))  # Redirect to login if not logged in
-    return render_template("Cricketportal.html")  # Show cricket portal if logged in
+  return render_template("login.html")
+   
 
-# Login route
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # If the form is submitted
@@ -32,7 +32,7 @@ def login():
         if username and password:
             try:
                 # Connect to the database
-                conn = sqlite3.connect('Cricket.db.db')
+                conn = sqlite3.connect('Cricket.db')
                 cur = conn.cursor()
                 # Check if the username exists and get the password
                 cur.execute("SELECT password FROM User WHERE username = ?", (username,))
@@ -43,18 +43,15 @@ def login():
                 if user and user[0] == password:
                     session['username'] = username  # Store username in session
                     return redirect(url_for('home'))  # Redirect to home
-                else:
-                    return "Invalid username or password."  # Invalid credentials
             except Exception as e:
                 print(f"Error: {e}")
-                return "An error occurred. Please try again later."
-    
+                flash(" Invalid password or username")  # Flash an error message
+                return redirect(url_for('login'))  # Redirect back to login
     return render_template('login.html')  # Render login page
 
-# Registration route
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    error_message = None  # Initialize error message
     if request.method == 'POST':  # If the form is submitted
         username = request.form.get('username')
         password = request.form.get('password')
@@ -62,11 +59,16 @@ def register():
 
         # Validate password and confirm password
         if password != confirm_password:
-            return "Passwords do not match."
+            flash("Passwords do not match.")
+            return redirect(url_for('register'))
+
         elif len(password) < 7:
-            return "Password should be at least 7 characters long."
+            flash("Password should be at least 7 characters long.")
+            return redirect(url_for('register'))
+
         elif not re.search(r'[A-Z]', password):
-            return "Password should contain at least one uppercase letter."
+            flash("Password should contain at least one uppercase letter.")
+            return redirect(url_for('register'))
 
         try:
             # Connect to the database
@@ -78,13 +80,14 @@ def register():
             conn.close()
             return redirect(url_for('registartionsucessfull'))  # Redirect to success page, if the registration was sucessfull.
         except sqlite3.IntegrityError:
-            return "Username already exists. Please choose a different username."
+            flash("Username already exists. Please choose a different username.")
+            return redirect(url_for('register'))
         except sqlite3.Error as e:
             print(f"Database error: {e}")
-            return "An error occurred. Please try again later."
+            flash("An error occurred. Please try again later.")
+            return redirect(url_for('register'))
 
     return render_template('register.html')  # Render registration page
-
 # Logout route
 @app.route('/logout')
 def logout():
@@ -148,7 +151,7 @@ def addplayer():
         
         conn.commit()
         conn.close()
-        flash('Player will be added after profanity check.')  # Flash message
+        flash('Player will be added after profanity check.')  # Flash message to conevy that player will be added after manual check
         return redirect(url_for('Players'))  # Redirect to Players page
 
 # Verify players route
@@ -221,7 +224,7 @@ def Ranking():
 def Record():
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-    # Fetch results from three tables data tables results and used join function to combine records.
+    # Fetch results from three tables data tables results from records which was sepreated on the basis on diffrent format and used join function to combine records.
     cur.execute("""
         SELECT DISTINCT 
             t.TeamName AS country,

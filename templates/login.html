@@ -1,19 +1,29 @@
-    {% extends "layout.html" %}
-    {% block title%} Login Page {% endblock %}
-    {% block content %}
-    <div class="login">
+{% extends "layout.html" %}
+{% block title %}Login Page{% endblock %}
+{% block content %}
+<div class="login">
     <div class="login-box">
-    <p> To view this cricket portal please login to acess it </p>
-    <h1>Login</h1>
-    <form method="POST" action="/login">
-        <form method="post" action="{{ url_for('login') }}">
+        <p>To view this cricket portal please log in to access it</p>
+        <h1>Login</h1>
+        <form method="POST" action="{{ url_for('login') }}">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
         </form>
         
-    </form>
-    <p>Don't have an account ? <a href="/register">Register here </a></p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <p>Don't have an account? <a href="/register">Register here</a></p>
     </div>
-    </div>
-   {% endblock %}
+</div>
+{% endblock %}

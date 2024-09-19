@@ -1,16 +1,14 @@
 {% extends "layout.html" %}
-{% block title %} Register Page {% endblock %}
+{% block title %}Register Page{% endblock %}
 {% block content %}
 <div class="login">
     <div class="login-box">
         <p>To access this cricket portal, please register an account.</p>
         <h1>Register</h1>
-        {% if error_message %}
-        <div class="errormessage">
-            {{ error_message }}
-        </div>
-    {% endif %}
-        <form method="POST" action="/register">
+        
+      
+        
+        <form method="POST" action="{{ url_for('register') }}">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required placeholder="Enter your username">
             <br>
@@ -22,6 +20,17 @@
             <br>
             <button type="submit">Register</button>
         </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
         <p>Already have an account? <a href="/login">Login here</a></p>
     </div>
 </div>
