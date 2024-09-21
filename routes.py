@@ -263,7 +263,7 @@ def Statistics():
     cur = conn.cursor()
     
     # Execute the query to get team data with image paths
-    cur.execute("SELECT Team, image_url, Information FROM Statistics")
+    cur.execute("SELECT Information FROM Statistics")
     Crickets = cur.fetchall()  # Fetch all results
     
     # Close the database connection
