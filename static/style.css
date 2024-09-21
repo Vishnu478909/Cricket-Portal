@@ -201,7 +201,9 @@ a:hover{
     margin-top: 50px;
 }
 .cric{
-  font-size: 18px;
+  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bolder;
     justify-content: space-around;
     flex-wrap: wrap;
     max-width: 400px;
@@ -240,7 +242,12 @@ tr {
     margin: 15px auto;
     box-sizing: border-box;
 }
-
+.team-image {
+    width: 100%; 
+    height: auto; 
+    border-radius: 10px;
+    margin-bottom: 10px; 
+}
 @media (max-width: 768px) {
     .team-box {
         padding: 15px;

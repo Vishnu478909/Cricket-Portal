@@ -229,8 +229,10 @@ def Ranking(ranking_id):
     return render_template("Ranking.html", Crickets=Crickets)  # Render rankings page
 
 # Record route
-@app.route('/Record')
-def Record():
+
+@app.route('/Record', defaults={'record_id': None})
+@app.route('/Record/<int:record_id>')
+def record(record_id):
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
     # Fetch results from three tables data tables results from records which was sepreated on the basis on diffrent format and used join function to combine records.
@@ -253,15 +255,22 @@ def Record():
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Record.html", Crickets=Crickets)  # Render records page
-
 # Statistics route
 @app.route('/Stats')
 def Statistics():
+    # Connect to the database
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-    cur.execute("SELECT information FROM statistics")  # Fetch statistics
+    
+    # Execute the query to get team data with image paths
+    cur.execute("SELECT Team, image_url, Information FROM Statistics")
     Crickets = cur.fetchall()  # Fetch all results
-    return render_template("Stats.html", Crickets=Crickets)  # Render statistics page
+    
+    # Close the database connection
+    conn.close()
+    
+    # Render the Stats.html template with the Crickets data
+    return render_template("Stats.html", Crickets=Crickets)
 
 # Review route
 @app.route('/Review')

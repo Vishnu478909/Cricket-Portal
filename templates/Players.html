@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/images/style.css">
+    <link rel="stylesheet" href="/static/style.css"> 
     <title>Players</title>
 </head>
 
@@ -61,23 +61,6 @@
     </div>
     
 
-    <!-- Single Player Details -->
-     <div class="Ranking-grid">
-    {% if Player %}
-    <div class="Brid">
-        
-        <div class="item"><strong>Name:</strong> {{ Player[0] }}</div>        
-        <div class="item"><strong>Matches:</strong> {{ Player[1] }}</div>
-        <div class="item"><strong>Matches:</strong> {{ Player[2] }}</div>
-        <div class="item"><strong>Innings:</strong> {{ Player[3] }}</div>
-        <div class="item"><strong>Runs:</strong> {{ Player[4] }}</div>
-        <div class="item"><strong>Wickets:</strong> {{ Player[5] }}</div>
-        <div class="item"><strong>Average:</strong> {{ Player[6] }}</div>
-        <div class="item"><strong>Team:</strong> {{ Player[7] }}</div>
-    </div>      <!-- Brid div -->
-
-</div> <!--  Ranking-grid div -->
-    {% else %}
-    {% endif %}
+   
 </body>
 </html>
