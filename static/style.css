@@ -29,26 +29,28 @@
 }
 
 
-.Cric{
+.Cric {
     position: fixed;
-    top:0;
+    top: 0;
     width: 100%;
-   background:linear-gradient(rgb(3, 173, 203),rgb(165, 228, 16));
-    padding: 10 px 0;
-    box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     letter-spacing: 5px;
     z-index: 1;
 }
 
-.Cric a{
-    color: #c03245;
-    font-size: larger;
+.Cric a {
+    display: inline-block;
     margin: 0 15px;
     padding: 10px 20px;
+    background-color: #4ca1af;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
     border-radius: 5px;
-    transition:  color 0.3s;
-
+    transition: background-color 0.3s ease;
 }
 
 .Cric a:hover{
@@ -137,11 +139,7 @@ footer p {
     border-radius: 10px;
     box-shadow: 0 0 10;
 }
-h1{
-    font-size: 100px;
-    margin: 0;
-    color: #e74c3c;
-}
+
 
 h2{
     margin: 20px;
@@ -231,17 +229,18 @@ tr {
 }
 
 .team-box {
-    position:relative;
-    left: 300px;
+    position: relative; 
+ right: 100px;
     background-color: rgb(165, 133, 241);
     padding: 20px;
     border-radius: 10px;
     border: 2px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 15px auto;
-    box-sizing: border-box;
+    width: 1800px; /* Set the box width to 90px as per your requirement */
+    margin: 15px auto; /* Centers the box horizontally */
+    box-sizing: border-box; /* Ensures padding is included in the total width */
 }
+
 .team-image {
     width: 100%; 
     height: auto; 
@@ -518,6 +517,7 @@ details summary{
     flex-direction: column;
     gap:11px;
     padding: 10px;
+    margin-top: 60px;
 }
 
 .Brid {
@@ -538,9 +538,7 @@ details summary{
     box-shadow: 0 4px 8px rgb(165, 133, 241);
     color: #000; 
 }
-.Ranking-grid, .Brid, .item {
-    z-index: 2; /* Ensures text stays above the overlay */
-}
+
 button {
     padding: 60px 90px;
     border: none;
@@ -642,12 +640,15 @@ form{
     text-align: center;
     text-decoration: double;
     font-size: xx-large;
-    color: whitesmoke;
+    color: rgb(254, 247, 247);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
   
 }
 
 .player-body {
-    background-image: url('https://media.gettyimages.com/id/1712414166/photo/indias-ravindra-jadeja-celebrates-after-taking-the-wicket-of-australias-alex-carey-during-the.jpg?s=612x612&w=0&k=20&c=oiZ_l-qBUCmBl1T5-krOYVEbD_X1c6sZO7btfbOpnQY=');
+    background-image: url('https://media.gettyimages.com/id/1802864213/photo/ahmedabad-india-india-fans-cheer-a-rohit-sharma-six-during-the-icc-mens-cricket-world-cup.jpg?s=612x612&w=0&k=20&c=w_rkbFc1iGNCurmNUcq5thRK6pDO_yRYbH7XzmeLprg=');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -671,4 +672,9 @@ form{
 
 .footerp{
     color: white;
+}
+
+.RSwords{
+    font-size: larger;
+    color: rgb(0, 0, 0);
 }
