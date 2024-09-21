@@ -112,7 +112,6 @@ def Players():
     # Fetch results from players and matches table
     cur.execute("""
         SELECT 
-            Player.PlayerId, 
             Player.PlayerName, 
             Player.Role,
             Matches.Matches,
@@ -190,6 +189,42 @@ def approve_player(player_id):
     conn.close()
 
     return redirect(url_for('verify_players'))  # Redirect back to verify players
+
+@app.route('/Players/<int:id>')
+def player_detail(id):
+    conn = sqlite3.connect('Cricket.db.db')
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT 
+            Player.PlayerName, 
+            Player.Role,
+            Matches.Matches,
+            Matches.Innings,
+            Matches.Runs,
+            Matches.Wickets,
+            Matches.Average,
+            Matches.Team
+        FROM 
+            Player
+        INNER JOIN 
+            Matches 
+        ON 
+            Player.PlayerId = Matches.Playerid 
+        WHERE 
+            Player.PlayerId = ? 
+            AND Player.Verified = 1
+    """, (id,))
+
+    Player = cur.fetchone()
+    conn.close()
+
+    if Player:
+        return render_template("Players.html", Player=Player)
+    else:
+        return render_template("404.html")
+
+
 
 # Ranking route
 @app.route('/Ranking')
