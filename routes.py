@@ -32,7 +32,7 @@ def login():
         if username and password:
             try:
                 # Connect to the database
-                conn = sqlite3.connect('Cricket.db')
+                conn = sqlite3.connect('Cricket.db.db')
                 cur = conn.cursor()
                 # Check if the username exists and get the password
                 cur.execute("SELECT password FROM User WHERE username = ?", (username,))
@@ -42,7 +42,7 @@ def login():
                 # Validate the user credentials
                 if user and user[0] == password:
                     session['username'] = username  # Store username in session
-                    return redirect(url_for('home'))  # Redirect to home
+                    return redirect(url_for('about'))  # Redirect to cricket portal page if login succeded
             except Exception as e:
                 print(f"Error: {e}")
                 flash(" Invalid password or username")  # Flash an error message
@@ -198,11 +198,13 @@ def Ranking():
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
 
-    # Determine the query based on the format
+    # Selecting data from test table
     if format == 'TEST':
         query = "SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST"
+    # Selecting data from test table
     elif format == 'T20':
         query = "SELECT Ranking, Player_Name, points, team, 'T20' AS Format FROM T20"
+  # Selecting data from odi table
     elif format == 'ODI':
         query = "SELECT Ranking, Player_Name, points, team, 'ODI' AS Format FROM ODI"
     else:
@@ -212,7 +214,7 @@ def Ranking():
             SELECT Ranking, Player_Name, points, team, 'ODI' AS Format FROM ODI
             UNION
             SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST
-        """  # Get all formats
+        """  # combine all the data ranking table information
 
     cur.execute(query)
     Crickets = cur.fetchall()  # Fetch ranking data
