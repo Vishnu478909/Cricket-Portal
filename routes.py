@@ -190,56 +190,21 @@ def approve_player(player_id):
 
     return redirect(url_for('verify_players'))  # Redirect back to verify players
 
-@app.route('/Players/<int:id>')
-def player_detail(id):
-    conn = sqlite3.connect('Cricket.db.db')
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT 
-            Player.PlayerName, 
-            Player.Role,
-            Matches.Matches,
-            Matches.Innings,
-            Matches.Runs,
-            Matches.Wickets,
-            Matches.Average,
-            Matches.Team
-        FROM 
-            Player
-        INNER JOIN 
-            Matches 
-        ON 
-            Player.PlayerId = Matches.Playerid 
-        WHERE 
-            Player.PlayerId = ? 
-            AND Player.Verified = 1
-    """, (id,))
-
-    Player = cur.fetchone()
-    conn.close()
-
-    if Player:
-        return render_template("Players.html", Player=Player)
-    else:
-        return render_template("404.html")
 
 
 
-# Ranking route
-@app.route('/Ranking')
-def Ranking():
+@app.route('/Ranking', defaults={'ranking_id': None})
+@app.route('/Ranking/<int:ranking_id>')
+def Ranking(ranking_id):
     format = request.args.get('format', 'ALL').upper()  # Get format from query parameters
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
 
-    # Selecting data from test table
+    # Selecting data based on the format
     if format == 'TEST':
         query = "SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST"
-    # Selecting data from test table
     elif format == 'T20':
         query = "SELECT Ranking, Player_Name, points, team, 'T20' AS Format FROM T20"
-  # Selecting data from odi table
     elif format == 'ODI':
         query = "SELECT Ranking, Player_Name, points, team, 'ODI' AS Format FROM ODI"
     else:
@@ -249,11 +214,18 @@ def Ranking():
             SELECT Ranking, Player_Name, points, team, 'ODI' AS Format FROM ODI
             UNION
             SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST
-        """  # combine all the data ranking table information
+        """  # Combine all ranking data
 
     cur.execute(query)
     Crickets = cur.fetchall()  # Fetch ranking data
     conn.close()
+
+    # If a ranking ID is provided, filter the results
+    if ranking_id is not None:
+        Crickets = [player for player in Crickets if player[0] == ranking_id]
+        if not Crickets:  # If no matching player is found
+            return render_template('404.html')  # Render a 404 page or an error message
+
     return render_template("Ranking.html", Crickets=Crickets)  # Render rankings page
 
 # Record route
