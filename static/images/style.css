@@ -33,7 +33,7 @@
     position: fixed;
     top:0;
     width: 100%;
-   background:linear-gradient(rgb(42, 165, 186),rgb(28, 218, 18));
+   background:linear-gradient(rgb(3, 173, 203),rgb(165, 228, 16));
     padding: 10 px 0;
     box-shadow: 0 4px 8px rgba(red, green, blue, alpha);
     text-align: center;
@@ -272,6 +272,8 @@ tr {
 }
 
 .stats1 {
+    position: relative;
+    top:15px;
     text-align: center;
     font-size: 36px;
     padding: 20px;
@@ -511,22 +513,26 @@ details summary{
     padding: 10px;
 }
 
-.Brid{
+.Brid {
     display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
     align-items: center;
-    color:rgb(241, 232, 232);
-
+    color: #ffffff; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.item{
-    background-color: rgba(red, green, blue, alpha);
+.item {
+    background-color: rgba(255, 255, 255, 0.8); 
     text-align: center;
     padding: 25px;
     border: 1px solid #865454;
     font-size: larger;
     box-shadow: 0 4px 8px rgb(165, 133, 241);
+    color: #000; 
+}
+.Ranking-grid, .Brid, .item {
+    z-index: 2; /* Ensures text stays above the overlay */
 }
 button {
     padding: 60px 90px;
@@ -633,13 +639,15 @@ form{
   
 }
 
-.player-body{
-    background-image:url(https://media.gettyimages.com/id/109290614/photo/dhaka-bangladesh-virat-kohli-of-india-raises-his-bat-on-reaching-his-century-during-the.jpg?s=612x612&w=0&k=20&c=yiu0xiZI1VLNx-7G_rz9lr0_I4x2GIj-IGeqGig0oXI=); 
+.player-body {
+    background-image: url('https://media.gettyimages.com/id/1712414166/photo/indias-ravindra-jadeja-celebrates-after-taking-the-wicket-of-australias-alex-carey-during-the.jpg?s=612x612&w=0&k=20&c=oiZ_l-qBUCmBl1T5-krOYVEbD_X1c6sZO7btfbOpnQY=');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    position: relative;
 }
+
 
 .playerp{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;

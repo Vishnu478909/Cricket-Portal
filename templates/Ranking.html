@@ -37,11 +37,11 @@
             <div class="Ranking-grid">    
                 {% for Cricket in Crickets %}
                 <div class="Brid">
-                    <div class="item">{{ Cricket[0] }}</div>
-                    <div class="item">{{ Cricket[1] }}</div>
-                    <div class="item">{{ Cricket[2] }}</div>
-                    <div class="item">{{ Cricket[3] }}</div>
-                    <div class="item">{{ Cricket[4] }}</div>
+                    <div class="item"><strong>Ranking:</strong> {{ Cricket[0] }}</div>
+                    <div class="item"><strong>Name:</strong>{{ Cricket[1] }}</div>
+                    <div class="item"><strong>Points:</strong>{{ Cricket[2] }}</div>
+                    <div class="item"><Strong>Team:</Strong>{{ Cricket[3] }}</div>
+                    <div class="item"> <Strong>Format:</Strong>{{ Cricket[4] }}</div>
                             </div>
                             {% endfor %}
     
