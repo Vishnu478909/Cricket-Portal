@@ -32,9 +32,9 @@
                 <!-- Flashing message-->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <div class="flash-messages">
-                        <ul>
-                            {% for message in messages %}
+                <div class="flash-messages">
+                 <ul>
+                 {% for message in messages %}
                                 <li>{{ message }}</li>
                             {% endfor %}
                         </ul>
@@ -44,7 +44,8 @@
             </form>
         </div>
     </div>
-<p class="cc"> Scroll down to view your favorite player's statistics! Enjoy the experience, and don’t forget to add your favorite player to the list
+<p class="cc"> Search for your favourite player's statistics! 
+    Enjoy the experience, and don’t forget to add your favourite player to the list!!!!!
 </p>
 <div class="Serach-bar">
     <form action="{{url_for('search')}}" method="GET">
