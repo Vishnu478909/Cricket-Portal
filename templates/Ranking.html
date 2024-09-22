@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/style.css"> 
 
     <title>Ranking</title>
+    <!-- Javascript fuction to filter rankings based on format selection -->
     <script>
         function FilterRanking (Format){
             window.location.href = '/Ranking?format='+ Format;
@@ -13,27 +14,33 @@
     </script>
 </head>
  
-<body class="Rbody">
+<body class="Rbody"></body>
+    <!-- Navigation bar with links to different sections -->
     <nav class="Cric">
         <strong><a href="/about">Home</a></strong>
-
         <strong> <a href="/Players"> Players</a></strong>
         <strong><a href="/Record">Record</a></strong>
         <strong> <a href="/Stats">Statistics</a></strong>
         <strong><a href="/Review">Review</a></strong>
         <strong><a href="/login">Logout</a></strong>
-        </nav> 
+    </nav> 
+    
     <header class="stats1">Ranking</header>
+    
+    <!-- Instructions for the user on how to view the rankings -->
     <p class="p">Click on a format to view the top 15 players for that format. Alternatively, scroll down to see the top players across all formats.</p>
 
+    <!-- Buttons to filter the rankings by format -->
     <div class="Rank-h1">
-    <button onclick="FilterRanking('Test')"> Test</button>
-    <button onclick="FilterRanking('ODI')"> ODI</button>
-    <button onclick="FilterRanking('T20')"> T20</button>
+        <button onclick="FilterRanking('Test')"> Test</button>
+        <button onclick="FilterRanking('ODI')"> ODI</button>
+        <button onclick="FilterRanking('T20')"> T20</button>
     </div>
+
     <table>
         <tbody>
             <div class="Ranking-grid">    
+                <!-- Top 15 ranked players in each format-->
                 {% for Cricket in Crickets %}
                 <div class="Brid">
                     <div class="item"><strong>Ranking:</strong> {{ Cricket[0] }}</div>
@@ -41,15 +48,15 @@
                     <div class="item"><strong>Points:</strong>{{ Cricket[2] }}</div>
                     <div class="item"><Strong>Team:</Strong>{{ Cricket[3] }}</div>
                     <div class="item"> <Strong>Format:</Strong>{{ Cricket[4] }}</div>
-                            </div>
-                            {% endfor %}
-    
-        </div>
-            
+                </div>
+                {% endfor %}
+            </div>
         </tbody>
     </table>
+
     <footer>
         <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>
     </footer>
+</body>
 </body>
 </html>
