@@ -1,12 +1,13 @@
 import re
 from flask import Flask, render_template, request, redirect, session, url_for, flash
+
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Secret key for session management
+app.secret_key = 'your_secret_key'  #Secret key for session management
 
 
-# Error handler for internal server errors
+# Error handler for internal server errorss
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template("500.html")  # Render 500 error page
@@ -79,7 +80,7 @@ def register():
             cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
             conn.commit()
             conn.close()
-            return redirect(url_for('registartionsucessfull'))  # Redirect to success page, if the registration was sucessfull.
+            return redirect(url_for('registartion_sucessfull'))  # Redirect to success page, if the registration was sucessfull.
         except sqlite3.IntegrityError:
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
