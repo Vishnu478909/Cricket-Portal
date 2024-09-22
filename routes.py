@@ -97,7 +97,7 @@ def logout():
 
 # Registration success route
 @app.route('/registartionsucessfull')
-def registartionsucessfull():
+def registartion_sucessfull():
     return render_template('registeration.html')  # Render success page
 
 
@@ -105,7 +105,6 @@ def registartionsucessfull():
 @app.route('/about')
 def about():
     return render_template("CricketPortal.html")  # Render Cricket portal page
-
 
 # Players route
 @app.route('/Players')
@@ -162,17 +161,13 @@ def search():
             "Player".PlayerName LIKE ?;""",
         ('%' + query + '%',)  # Use parameter for search query
     )
-
     Crickets = cur.fetchall()  # Fetch results
     conn.close()  # Close the connection
     return render_template("Players.html", Crickets=Crickets, query=query)
-
 @app.route('/Players/<int:id>')
 def player_detail(id):
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-
-
     cur.execute("""
         SELECT
             Player.PlayerName,
@@ -193,12 +188,8 @@ def player_detail(id):
             Player.PlayerId = ?
             AND Player.Verified = 1
     """, (id,))
-
-
     Player = cur.fetchone()
     conn.close()
-
-
     if Player:
         return render_template("Players.html", Player=Player)
     else:
