@@ -5,21 +5,25 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Secret key for session management
 
+
 # Error handler for internal server errors
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template("500.html")  # Render 500 error page
+
 
 # Error handler for page not found errors
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404  # Render 404 error page
 
+
 # Home route
 @app.route('/', methods=['GET', 'POST'])
 def home():
-  return render_template("login.html")
-   
+    return render_template("login.html")
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # If the form is submitted
@@ -79,24 +83,29 @@ def register():
         except sqlite3.IntegrityError:
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
-      
+
 
     return render_template('register.html')  # Render registration page
+
+
 # Logout route
 @app.route('/logout')
 def logout():
     session.clear()  # Clear all session data
     return redirect(url_for('login'))  # Redirect to the login page
 
+
 # Registration success route
 @app.route('/registartionsucessfull')
 def registartionsucessfull():
     return render_template('registeration.html')  # Render success page
 
+
 # About route
 @app.route('/about')
 def about():
     return render_template("CricketPortal.html")  # Render Cricket portal page
+
 
 # Players route
 @app.route('/Players')
@@ -105,8 +114,8 @@ def Players():
     cur = conn.cursor()
     # Fetch results from players and matches table
     cur.execute("""
-        SELECT 
-            Player.PlayerName, 
+        SELECT
+            Player.PlayerName,
             Player.Role,
             Matches.Matches,
             Matches.Average,
@@ -114,17 +123,18 @@ def Players():
             Matches.Runs,
             Matches.Wickets,
             Matches.Team
-        FROM 
+        FROM
             Player
-        INNER JOIN 
-            Matches 
-        ON 
+        INNER JOIN
+            Matches
+        ON
             Player.PlayerId = Matches.PlayerId
         WHERE
             Player.Verified = 1;  -- Only select approved players
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Players.html", Crickets=Crickets)  # Render players page
+
 
 # Add player route
 @app.route('/player', methods=['GET', 'POST'])
@@ -138,14 +148,15 @@ def addplayer():
 
         # Insert the new player into the PendingPlayers table
         cur.execute("""
-            INSERT INTO PendingPlayers (PlayerName, Role) 
+            INSERT INTO PendingPlayers (PlayerName, Role)
             VALUES (?, ?)
         """, (player_name, role))
-        
+
         conn.commit()
         conn.close()
         flash('Player will be added after profanity check.')  # Flash message to conevy that player will be added after manual check
         return redirect(url_for('Players'))  # Redirect to Players page
+
 
 # Verify players route
 @app.route('/verify_players')
@@ -157,6 +168,7 @@ def verify_players():
     player = cur.fetchall()
 
     return render_template("verify_players.html", players=player)  # Render verify players page
+
 
 # Approve player route
 @app.route('/approve_player/<int:player_id>')
@@ -172,19 +184,17 @@ def approve_player(player_id):
         player_name, role = player
         # Insert the player into the Player table and set Verified to 1
         cur.execute("""
-            INSERT INTO Player (PlayerName, Role, Verified) 
+            INSERT INTO Player (PlayerName, Role, Verified)
             VALUES (?, ?, 1)
         """, (player_name, role))
 
         # Delete the player from PendingPlayers
         cur.execute("DELETE FROM PendingPlayers WHERE id=?", (player_id,))
-    
+
     conn.commit()
     conn.close()
 
     return redirect(url_for('verify_players'))  # Redirect back to verify players
-
-
 
 
 @app.route('/Ranking', defaults={'ranking_id': None})
@@ -222,8 +232,8 @@ def Ranking(ranking_id):
 
     return render_template("Ranking.html", Crickets=Crickets)  # Render rankings page
 
-# Record route
 
+# Record route
 @app.route('/Record', defaults={'record_id': None})
 @app.route('/Record/<int:record_id>')
 def record(record_id):
@@ -231,40 +241,43 @@ def record(record_id):
     cur = conn.cursor()
     # Fetch results from three tables data tables results from records which was sepreated on the basis on diffrent format and used join function to combine records.
     cur.execute("""
-        SELECT DISTINCT 
+        SELECT DISTINCT
             t.TeamName AS country,
             tr.record_test,
             o.record_odi,
-            t.record_value 
-        FROM 
+            t.record_value
+        FROM
             test_records tr
-        LEFT JOIN 
+        LEFT JOIN
             odi_records o ON tr.Team_id = o.Team_id
-        LEFT JOIN 
+        LEFT JOIN
             t20_records t ON tr.Team_id = t.Team_id
-        LEFT JOIN 
+        LEFT JOIN
             Teams t ON tr.Team_id = t.Teamid
-        ORDER BY  
+        ORDER BY
             t.TeamName
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Record.html", Crickets=Crickets)  # Render records page
+
+
 # Statistics route
 @app.route('/Stats')
 def Statistics():
     # Connect to the database
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-    
+
     # Execute the query to get team data with image paths
     cur.execute("SELECT Information FROM Statistics")
     Crickets = cur.fetchall()  # Fetch all results
-    
+
     # Close the database connection
     conn.close()
-    
+
     # Render the Stats.html template with the Crickets data
     return render_template("Stats.html", Crickets=Crickets)
+
 
 # Review route
 @app.route('/Review')
@@ -274,6 +287,7 @@ def Review():
     cur.execute("SELECT * FROM Review WHERE Is_Deleted = 0")  # Fetch active reviews
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Review.html", Crickets=Crickets)  # Render reviews page
+
 
 # Add review route
 @app.route('/addreview', methods=['POST'])
@@ -287,6 +301,7 @@ def add_review():
     conn.commit()
     conn.close()
     return redirect('/Review')  # Redirect to reviews page
+
 
 # Run the website
 if __name__ == "__main__":
