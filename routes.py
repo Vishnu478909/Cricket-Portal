@@ -20,9 +20,6 @@ def page_not_found(e):
 def home():
   return render_template("login.html")
    
-
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  # If the form is submitted
@@ -82,10 +79,7 @@ def register():
         except sqlite3.IntegrityError:
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
-        except sqlite3.Error as e:
-            print(f"Database error: {e}")
-            flash("An error occurred. Please try again later.")
-            return redirect(url_for('register'))
+      
 
     return render_template('register.html')  # Render registration page
 # Logout route
