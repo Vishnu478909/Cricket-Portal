@@ -82,7 +82,7 @@ input[type="submit"]:hover {
         <strong> <a href="/Stats">Statistics</a></strong>
         <strong><a href="/login">Logout</a></strong>
         </nav> 
-    
+    <!-- Rules for Review writing section-->
     <H1 class="stats1"> Review time</H1>
     <div class="ce">
         <h2 class="h2"> Rules</h2>
@@ -114,7 +114,7 @@ input[type="submit"]:hover {
             <br> Please ensure that comments contribute positively to the discussion.<br>
              <strong>We trust you to use this feature wisely.</strong>
         
-           
+    <!-- Review Sumbmission Form-->       
     </div>
     <form action="/addreview" method="post">
         <label for="Review">Review</label>
@@ -133,9 +133,11 @@ input[type="submit"]:hover {
          </select> <br> <br>
         <input type="submit" value="submit">
 
+    <!-- Section to display existing reviews from other users -->
      </form>
      <div class="ce">
         <h2 class="h2">Existing Reviews:</h2>
+    <!-- Reviews will  be shown corresponding with ratings-->
         <ul>
             {% for review in Crickets %}
                 <li class="cric">{{ review[1] }} - Rating: {{ review[2] }}</li>
