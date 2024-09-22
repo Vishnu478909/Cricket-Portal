@@ -21,7 +21,7 @@
     <p class="cc">Add your favorite player's name and role.<br>
         Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
         Once confirmed, their details will be added to our records.</p>
-
+<!-- Input box for adding player-->
     <div class="login">
         <div class="login-box">
             <p class="playerp">Player information</p>
@@ -29,6 +29,7 @@
                 <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
                 <input class="form-input" type="text" name="role" placeholder="Role" required>
                 <button class="form-button" type="submit">Add Player</button>
+                <!-- Flashing message-->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="flash-messages">
@@ -48,7 +49,7 @@
 
 
 
- 
+     <!-- Players list -->
     <div class="Ranking-grid">    
         {% for Cricket in Crickets %}
         <div class="Brid">
