@@ -134,6 +134,75 @@ def Players():
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Players.html", Crickets=Crickets)  # Render players page
+@app.route('/search')
+def search():
+    conn = sqlite3.connect('Cricket.db.db')  # Connecting to the database
+    cur = conn.cursor()
+    
+    query = request.args.get("query", '')
+    
+    cur.execute(
+        """SELECT
+            "Player".PlayerName,
+            "Player".Role,
+            Matches.Matches,
+            Matches.Average,
+            Matches.Innings,
+            Matches.Runs,
+            Matches.Wickets,
+            Matches.Team
+        FROM
+            "Player"
+        INNER JOIN
+            Matches
+        ON
+            "Player".PlayerId = Matches.PlayerId
+        WHERE
+            "Player".Verified = 1 AND
+            "Player".PlayerName LIKE ?;""",
+        ('%' + query + '%',)  # Use parameter for search query
+    )
+
+    Crickets = cur.fetchall()  # Fetch results
+    conn.close()  # Close the connection
+    return render_template("Players.html", Crickets=Crickets, query=query)
+
+@app.route('/Players/<int:id>')
+def player_detail(id):
+    conn = sqlite3.connect('Cricket.db.db')
+    cur = conn.cursor()
+
+
+    cur.execute("""
+        SELECT
+            Player.PlayerName,
+            Player.Role,
+            Matches.Matches,
+            Matches.Innings,
+            Matches.Runs,
+            Matches.Wickets,
+            Matches.Average,
+            Matches.Team
+        FROM
+            Player
+        INNER JOIN
+            Matches
+        ON
+            Player.PlayerId = Matches.Playerid
+        WHERE
+            Player.PlayerId = ?
+            AND Player.Verified = 1
+    """, (id,))
+
+
+    Player = cur.fetchone()
+    conn.close()
+
+
+    if Player:
+        return render_template("Players.html", Player=Player)
+    else:
+        return render_template("404.html")
 
 
 # Add player route
@@ -232,11 +301,10 @@ def Ranking(ranking_id):
 
     return render_template("Ranking.html", Crickets=Crickets)  # Render rankings page
 
-
 # Record route
-@app.route('/Record', defaults={'record_id': None})
-@app.route('/Record/<int:record_id>')
-def record(record_id):
+@app.route('/Record')
+
+def record():
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
     # Fetch results from three tables data tables results from records which was sepreated on the basis on diffrent format and used join function to combine records.
@@ -259,6 +327,7 @@ def record(record_id):
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Record.html", Crickets=Crickets)  # Render records page
+
 
 
 # Statistics route

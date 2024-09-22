@@ -46,6 +46,13 @@
     </div>
 <p class="cc"> Scroll down to view your favorite player's statistics! Enjoy the experience, and don’t forget to add your favorite player to the list
 </p>
+<div class="Serach-bar">
+    <form action="{{url_for('search')}}" method="GET">
+        <input type="text" name="query" placeholder="Search for a player" required>
+       <div class="sumbit"> <button type="submit">Sumbit</button>
+</div>
+    </form>
+</div>
 
 
 
@@ -65,6 +72,24 @@
         </div>
         {% endfor %}
     </div>
+
+        <!-- Single Player Details -->
+        <div class="Ranking-grid">
+            {% if Player %}
+            <div class="Brid">
+                
+                <div class="item"><strong>Name:</strong> {{ Player[0] }}</div>        
+                <div class="item"><strong>Matches:</strong> {{ Player[1] }}</div>
+                <div class="item"><strong>Matches:</strong> {{ Player[2] }}</div>
+                <div class="item"><strong>Innings:</strong> {{ Player[3] }}</div>
+                <div class="item"><strong>Runs:</strong> {{ Player[4] }}</div>
+                <div class="item"><strong>Wickets:</strong> {{ Player[5] }}</div>
+                <div class="item"><strong>Average:</strong> {{ Player[6] }}</div>
+                <div class="item"><strong>Team:</strong> {{ Player[7] }}</div>
+            </div>      <!-- Brid div -->
+        </div> <!--  Ranking-grid div -->
+            {% else %}
+            {% endif %}
     
 
     <footer>
