@@ -7,8 +7,9 @@
     <title>Players</title>
 </head>
 
-<nav class="Cric">
+<nav class="Nav-bar">
     <strong><a href="/about">Home</a></strong>
+    <strong> <a href="/Players"> Players</a></strong>
     <strong><a href="/Ranking">Rankings</a></strong>
     <strong><a href="/Record">Record</a></strong>
     <strong><a href="/Stats">Statistics</a></strong>
@@ -16,7 +17,7 @@
     <strong><a href="/login">Logout</a></strong>
 </nav>
 
-<body class="player-body">
+<body class="home-style">
     <h1 class="stats1">Cricket Players</h1>
     <p class="Instruction-player">Add your favorite player's name and role.<br>
         Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
@@ -56,43 +57,56 @@
     </form>
 </div>
 
-
-
-     <!-- Players list -->
+    <div class="Ranking-grid">    
+         <!-- Players list -->
     <div class="Ranking-grid">    
         {% for Cricket in Crickets %}
         <div class="Brid">
-            <div class="item"><strong class="Title-column">Name:</strong> {{ Cricket[0] }}</div>
-            <div class="item"><strong class="Title-column">Role</strong> {{ Cricket[1] }}</div>
-            <div class="item"><strong class="Title-column">Matches:</strong> {{ Cricket[2] }}</div>
-            <div class="item"><strong class="Title-column">Average:</strong> {{ Cricket[3] }}</div>
-            <div class="item"><strong class="Title-column">Innings:</strong> {{ Cricket[4] }}</div>
-            <div class="item"><strong class="Title-column">Runs:</strong> {{ Cricket[5] }}</div>
-            <div class="item"><strong class="Title-column">Wickets:</strong> {{ Cricket[6] }}</div>
-            <div class="item"><strong class="Title-column">Team:</strong> {{ Cricket[7] }}</div>
-        
+            <div class="item">
+                <strong class="RSwords">Name:</strong> {{ Cricket[0] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Role:</strong> {{ Cricket[1] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Matches:</strong> {{ Cricket[2] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Average:</strong> {{ Cricket[3] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Innings:</strong> {{ Cricket[4] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Runs:</strong> {{ Cricket[5] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Wickets:</strong> {{ Cricket[6] }}
+            </div>
+            <div class="item">
+                <strong class="RSwords">Team:</strong> {{ Cricket[7] }}
+            </div>
+            
+
         </div>
         {% endfor %}
     </div>
+    </div>
 
-        <!-- Single Player Details -->
-        <div class="Ranking-grid">
-            {% if Player %}
-            <div class="Brid">
-                
-                <div class="item"><strong>Name:</strong> {{ Player[0] }}</div>        
-                <div class="item"><strong>Matches:</strong> {{ Player[1] }}</div>
-                <div class="item"><strong>Matches:</strong> {{ Player[2] }}</div>
-                <div class="item"><strong>Innings:</strong> {{ Player[3] }}</div>
-                <div class="item"><strong>Runs:</strong> {{ Player[4] }}</div>
-                <div class="item"><strong>Wickets:</strong> {{ Player[5] }}</div>
-                <div class="item"><strong>Average:</strong> {{ Player[6] }}</div>
-                <div class="item"><strong>Team:</strong> {{ Player[7] }}</div>
-            </div>      <!-- Brid div -->
-        </div> <!--  Ranking-grid div -->
-            {% else %}
-            {% endif %}
-    
+    <!-- Single Player Details -->
+    <div class="Ranking-grid">
+        {% if Player %}
+        <div class="Brid">
+            <div class="item"><strong>Name:</strong> {{ Player[0] }}</div>        
+            <div class="item"><strong>Matches:</strong> {{ Player[1] }}</div>
+            <div class="item"><strong>Innings:</strong> {{ Player[2] }}</div>
+            <div class="item"><strong>Runs:</strong> {{ Player[3] }}</div>
+            <div class="item"><strong>Wickets:</strong> {{ Player[4] }}</div>
+            <div class="item"><strong>Average:</strong> {{ Player[5] }}</div>
+            <div class="item"><strong>Team:</strong> {{ Player[6] }}</div>
+        </div>      
+     {% endif %}
+    </div>
 
     <footer>
         <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>
