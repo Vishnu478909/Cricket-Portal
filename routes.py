@@ -7,11 +7,6 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 import sqlite3
 
 
-from werkzeug.security import check_password_hash
-
-
-import bcrypt
-
 import time
 
 
@@ -44,7 +39,7 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':  # If the form is submitted
+    if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
 
@@ -54,37 +49,36 @@ def login():
         attempts = login_attempts.get(ip_address, [])
 
         # Clean up old attempts
-        attempts = [t for t in attempts if current_time - t < 30]  
+        attempts = [t for t in attempts if current_time - t < 30]
         login_attempts[ip_address] = attempts
 
         if len(attempts) >= 5:
-            flash("""Too many login attempts. 
-                Please try again later in 30 seconds.""")
+            flash("Too many login attempts. Please try again later in 30 seconds.")
             return render_template('login.html')
 
         if username and password:
-            try:
-                with sqlite3.connect('Cricket.db.db') as conn:
-                    cur = conn.cursor()
-                    cur.execute("SELECT password FROM User WHERE username = ?",
-                                (username,))
-                    user = cur.fetchone()
+            # Connect to the database
+            conn = sqlite3.connect('Cricket.db.db')
+            cur = conn.cursor()
+            cur.execute("SELECT password FROM User WHERE username = ?", (username,))
+            user = cur.fetchone()
+            conn.close()  # Close the database connection
 
-                if user and check_password_hash(user[0], password):  # Use hashed password check
-                    session['username'] = username  # Store username in session
-                    return redirect(url_for('about'))  
-                else:
-                    flash("Invalid username or password.")
-                    login_attempts[ip_address].append(current_time)  # Record the failed attempt
-            except Exception as e:
-                app.logger.error(f"Error during login: {e}")
-                flash("An error occurred during login. Please try again.")
+            if user and user[0] == password:  # Check plain text password
+                session['username'] = username  # Store username in session
+                return redirect(url_for('about'))
+            else:
+                flash("Invalid username or password.")
+                login_attempts[ip_address].append(current_time)  # Record the failed attempt
+
         return render_template('login.html')  # Render login page
+
+    return render_template('login.html')  # Render login page for GET request
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':  # If the form is submitted
+    if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
@@ -97,26 +91,26 @@ def register():
         elif len(password) < 7:
             flash("Password should be at least 7 characters long.")
             return redirect(url_for('register'))
-        elif len(username) < 7:
-            flash("The username should be atleast 5 Chracters long")
+        elif len(username) < 5:
+            flash("The username should be at least 5 characters long.")
             return redirect(url_for('register'))
         elif len(username) > 10:
-            flash("Username should be below 10 Chracters ")
+            flash("Username should be at most 10 characters.")
             return redirect(url_for('register'))
         elif not re.search(r'[A-Z]', password):
             flash("Password should contain at least one uppercase letter.")
             return redirect(url_for('register'))
+
         try:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             # Connect to the database
-            conn = sqlite3.connect('Cricket.db.db')
-            cur = conn.cursor()
-            # Insert new user into the User table
-            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
-            conn.commit()
-            conn.close()
-             # Redirect to success page, if the registration was sucessfull.
-            return redirect(url_for('registartion_sucessfull')) 
+            with sqlite3.connect('Cricket.db') as conn:
+                cur = conn.cursor()
+                # Insert new user into the User table
+                cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
+                conn.commit()
+
+            # Redirect to success page if the registration was successful
+            return redirect(url_for('registration_successful'))
         except sqlite3.IntegrityError:
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
