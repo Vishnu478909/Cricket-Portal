@@ -1,3 +1,4 @@
+/* Cricket portal */
 .home-style{
     margin: 0;
     padding: 0;
@@ -95,7 +96,7 @@
   overflow: hidden;
 }
 
-img.Dhoni{
+img.Image-container{
     width: 100%;
     max-width: 100%;
     border-radius: 20px;
@@ -384,7 +385,7 @@ padding: 0;
     background-attachment: fixed;
 }
 
-
+/* Record page */
 .recordbody {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     line-height: 1.6;
@@ -517,6 +518,7 @@ text-align: center;
 details summary{
     list-style:none ;
 }
+/*Ranking Template */
 
 .Ranking-grid{
     display: flex;
@@ -575,6 +577,7 @@ button {
     padding: 10px;
     border-radius: 10px;
     }
+
 .Rbody{
     
     background-image:url(https://media.gettyimages.com/id/109290614/photo/dhaka-bangladesh-virat-kohli-of-india-raises-his-bat-on-reaching-his-century-during-the.jpg?s=612x612&w=0&k=20&c=yiu0xiZI1VLNx-7G_rz9lr0_I4x2GIj-IGeqGig0oXI=);
@@ -584,6 +587,8 @@ button {
     background-attachment: fixed;
 }
 
+
+/*Player add player form css */
 .player-form{
     background-color: rgba(255, 255, 255, 0.9); /*white */
     padding: 20px;
@@ -642,7 +647,7 @@ form{
 
 }
 
-.cc {
+.Instruction-player {
     text-align: center;
     text-decoration: double;
     font-size: xx-large;

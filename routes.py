@@ -4,7 +4,9 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  #Secret key for session management
+app.secret_key = 'your_secret_key'  #Secret key for session managemen
+
+
 
 
 # Error handler for internal server errorss
@@ -66,6 +68,10 @@ def register():
 
         elif len(password) < 7:
             flash("Password should be at least 7 characters long.")
+            return redirect(url_for('register'))
+        
+        elif len(username) < 7:
+            flash("The username should be atleast 5 Chracters long")
             return redirect(url_for('register'))
 
         elif not re.search(r'[A-Z]', password):
