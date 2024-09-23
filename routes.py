@@ -1,24 +1,39 @@
 import re
+
+
 from flask import Flask, render_template, request, redirect, session, url_for, flash
+
 
 import sqlite3
 
+
+from werkzeug.security import check_password_hash
+
+
+import bcrypt
+
+import time
+
+
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  #Secret key for session managemen
+app.secret_key = 'your_secret_key'  # Secret key for session management
 
 
+login_attempts = {}
 
 
 # Error handler for internal server errorss
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template("500.html")  # Render 500 error page
+    return render_template("500.html")  
+    # Render 500 error page
 
 
 # Error handler for page not found errors
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404  # Render 404 error page
+    return render_template("404.html"),404 
+    # Render 404 error page
 
 
 # Home route
@@ -33,25 +48,38 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
+        # Rate limiting logic
+        ip_address = request.remote_addr
+        current_time = time.time()
+        attempts = login_attempts.get(ip_address, [])
+
+        # Clean up old attempts
+        attempts = [t for t in attempts if current_time - t < 30]  
+        login_attempts[ip_address] = attempts
+
+        if len(attempts) >= 5:
+            flash("""Too many login attempts. 
+                Please try again later in 30 seconds.""")
+            return render_template('login.html')
+
         if username and password:
             try:
-                # Connect to the database
-                conn = sqlite3.connect('Cricket.db.db')
-                cur = conn.cursor()
-                # Check if the username exists and get the password
-                cur.execute("SELECT password FROM User WHERE username = ?", (username,))
-                user = cur.fetchone()
-                conn.close()
+                with sqlite3.connect('Cricket.db.db') as conn:
+                    cur = conn.cursor()
+                    cur.execute("SELECT password FROM User WHERE username = ?",
+                                (username,))
+                    user = cur.fetchone()
 
-                # Validate the user credentials
-                if user and user[0] == password:
+                if user and check_password_hash(user[0], password):  # Use hashed password check
                     session['username'] = username  # Store username in session
-                    return redirect(url_for('about'))  # Redirect to cricket portal page if login succeded
+                    return redirect(url_for('about'))  
+                else:
+                    flash("Invalid username or password.")
+                    login_attempts[ip_address].append(current_time)  # Record the failed attempt
             except Exception as e:
-                print(f"Error: {e}")
-                flash(" Invalid password or username")  # Flash an error message
-                return redirect(url_for('login'))  # Redirect back to login
-    return render_template('login.html')  # Render login page
+                app.logger.error(f"Error during login: {e}")
+                flash("An error occurred during login. Please try again.")
+        return render_template('login.html')  # Render login page
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -69,16 +97,17 @@ def register():
         elif len(password) < 7:
             flash("Password should be at least 7 characters long.")
             return redirect(url_for('register'))
-        
         elif len(username) < 7:
             flash("The username should be atleast 5 Chracters long")
             return redirect(url_for('register'))
-
+        elif len(username) > 10:
+            flash("Username should be below 10 Chracters ")
+            return redirect(url_for('register'))
         elif not re.search(r'[A-Z]', password):
             flash("Password should contain at least one uppercase letter.")
             return redirect(url_for('register'))
-
         try:
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             # Connect to the database
             conn = sqlite3.connect('Cricket.db.db')
             cur = conn.cursor()
@@ -86,12 +115,11 @@ def register():
             cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", (username, password))
             conn.commit()
             conn.close()
-            return redirect(url_for('registartion_sucessfull'))  # Redirect to success page, if the registration was sucessfull.
+             # Redirect to success page, if the registration was sucessfull.
+            return redirect(url_for('registartion_sucessfull')) 
         except sqlite3.IntegrityError:
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
-
-
     return render_template('register.html')  # Render registration page
 
 
@@ -112,6 +140,7 @@ def registartion_sucessfull():
 @app.route('/about')
 def about():
     return render_template("CricketPortal.html")  # Render Cricket portal page
+
 
 # Players route
 @app.route('/Players')
@@ -140,13 +169,13 @@ def Players():
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Players.html", Crickets=Crickets)  # Render players page
+
+
 @app.route('/search')
 def search():
     conn = sqlite3.connect('Cricket.db.db')  # Connecting to the database
     cur = conn.cursor()
-    
     query = request.args.get("query", '')
-    
     cur.execute(
         """SELECT
             "Player".PlayerName,
@@ -171,6 +200,9 @@ def search():
     Crickets = cur.fetchall()  # Fetch results
     conn.close()  # Close the connection
     return render_template("Players.html", Crickets=Crickets, query=query)
+
+
+# Players int db
 @app.route('/Players/<int:id>')
 def player_detail(id):
     conn = sqlite3.connect('Cricket.db.db')
@@ -233,8 +265,8 @@ def verify_players():
 
     cur.execute("SELECT * FROM Player")  # Fetch all players
     player = cur.fetchall()
-
-    return render_template("verify_players.html", players=player)  # Render verify players page
+    # Render verify players page
+    return render_template("verify_players.html", players=player) 
 
 
 # Approve player route
@@ -244,7 +276,8 @@ def approve_player(player_id):
     cur = conn.cursor()
 
     # Retrieve the player details from PendingPlayers
-    cur.execute("SELECT PlayerName, Role FROM PendingPlayers WHERE id=?", (player_id,))
+    cur.execute("""
+                SELECT PlayerName, Role FROM PendingPlayers WHERE id=?""", (player_id,))
     player = cur.fetchone()
 
     if player:
@@ -260,7 +293,6 @@ def approve_player(player_id):
 
     conn.commit()
     conn.close()
-
     return redirect(url_for('verify_players'))  # Redirect back to verify players
 
 
@@ -273,7 +305,8 @@ def Ranking(ranking_id):
 
     # Selecting data based on the format
     if format == 'TEST':
-        query = "SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST"
+        query = """SELECT Ranking, Player_Name, points, team,
+        'TEST' AS Format FROM TEST"""
     elif format == 'T20':
         query = "SELECT Ranking, Player_Name, points, team, 'T20' AS Format FROM T20"
     elif format == 'ODI':
@@ -295,17 +328,20 @@ def Ranking(ranking_id):
     if ranking_id is not None:
         Crickets = [player for player in Crickets if player[0] == ranking_id]
         if not Crickets:  # If no matching player is found
-            return render_template('404.html')  # Render a 404 page or an error message
+            # Render a 404 page or an error message
+            return render_template('404.html')  
+    # Render rankings page
+    return render_template("Ranking.html", Crickets=Crickets) 
 
-    return render_template("Ranking.html", Crickets=Crickets)  # Render rankings page
 
 # Record route
 @app.route('/Record')
-
 def record():
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-    # Fetch results from three tables data tables results from records which was sepreated on the basis on diffrent format and used join function to combine records.
+    # Fetch results from three tables data tables results from records  
+    # which was sepreated on the basis on diffrent format and used join
+    # function to combine records.
     cur.execute("""
         SELECT DISTINCT
             t.TeamName AS country,
@@ -325,7 +361,6 @@ def record():
     """)
     Crickets = cur.fetchall()  # Fetch all results
     return render_template("Record.html", Crickets=Crickets)  # Render records page
-
 
 
 # Statistics route
@@ -351,9 +386,11 @@ def Statistics():
 def Review():
     conn = sqlite3.connect('Cricket.db.db')
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Review WHERE Is_Deleted = 0")  # Fetch active reviews
+    # Fetch active reviews
+    cur.execute("SELECT * FROM Review WHERE Is_Deleted = 0") 
     Crickets = cur.fetchall()  # Fetch all results
-    return render_template("Review.html", Crickets=Crickets)  # Render reviews page
+    # Render reviews page
+    return render_template("Review.html", Crickets=Crickets) 
 
 
 # Add review route

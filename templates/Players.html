@@ -30,17 +30,18 @@
                 <input class="form-input" type="text" name="role" placeholder="Role" required>
                 <button class="form-button" type="submit">Add Player</button>
                 <!-- Flashing message-->
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div class="flash-messages">
-                 <ul>
-                 {% for message in messages %}
-                                <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% endwith %}
+              <!-- Flash messages area -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+        </div>
+    {% endif %}
+    {% endwith %}
             </form>
         </div>
     </div>
