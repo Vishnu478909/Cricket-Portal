@@ -192,7 +192,7 @@ a:hover{
    border-radius: 8px;
  box-shadow: 0  4px 8 px rgb(red, green, blue);
 }
-.ce{
+.Instructions-INFO{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,13 +201,13 @@ a:hover{
 }
 .cric{
   font-size: 20px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cinzel;
 
     justify-content: space-around;
     flex-wrap: wrap;
     max-width: 400px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(241, 237, 237, 0.9);
     border: 2px solid #333;
 
 }
@@ -445,6 +445,7 @@ form{
 }
 
 
+
 /* Players Background */
 .player-body {
     background-image: url('https://media.gettyimages.com/id/1776075350/photo/kolkata-india-spectators-react-in-the-crowd-during-the-icc-mens-cricket-world-cup-india-2023.jpg?s=612x612&w=0&k=20&c=mbm9NJZsFf4FIyx7It7l2o2jEI_nsX-TNoHFJC60YiQ=');
@@ -465,6 +466,9 @@ form{
 
 .footerp{
     color: white;
+    font-family:Georgia ;
+    font-size: larger;
+    text-align: center;
 }
 .Title-column{
     font-size: 20px;
@@ -717,6 +721,7 @@ button {
 button:hover {
     transform: translateY(-3px);
     opacity: 0.9;
+    background: blue;
 }
 
 
@@ -725,6 +730,7 @@ button:hover {
     text-align: center;
     font-size: 150px;
 }
+
 
 
 

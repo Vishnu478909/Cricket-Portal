@@ -5,9 +5,6 @@
     <div class="login-box">
         <p>To access this cricket portal, please register an account.</p>
         <h1>Register</h1>
-        
-      
-        <!--Creating input box for Register box-->
 
         <form method="POST" action="{{ url_for('register') }}">
             <label for="username">Username:</label>
@@ -21,19 +18,23 @@
             <br>
             <button type="submit">Register</button>
         </form>
-        <!--  Flashing messages for restrictions for username and passowrd sections-->
+
+        <!-- Flash messages container should have overflow hidden -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="flash-messages">
                 <ul>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                        <div class="Flash">{{ message }}</div>
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
-    {% endwith %}
-        <p>Already have an account? <a href="/login">Login here</a></p>
+        {% endwith %}
+        
+        <!-- This must stay at the bottom of login-box -->
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
     </div>
 </div>
+
 {% endblock %}
