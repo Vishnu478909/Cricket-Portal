@@ -3,113 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css"> 
     <title>Players</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
-<nav class="Nav-bar">
-    <strong><a href="/about">Home</a></strong>
-    <strong> <a href="/Players"> Players</a></strong>
-    <strong><a href="/Ranking">Rankings</a></strong>
-    <strong><a href="/Record">Record</a></strong>
-    <strong><a href="/Stats">Statistics</a></strong>
-    <strong><a href="/Review">Review</a></strong>
-    <strong><a href="/login">Logout</a></strong>
-</nav>
-
-<body class="home-style">
-    <h1 class="stats1">Cricket Players</h1>
-    <p class="Instruction-player">Add your favorite player's name and role.<br>
-        Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
-        Once confirmed, their details will be added to our records.</p>
-<!-- Input box for adding player-->
-    <div class="login">
-        <div class="login-box">
-            <p class="playerp">Player information</p>
-            <form class="Player-form" action="{{ url_for('addplayer') }}" method="post">
-                <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
-                <input class="form-input" type="text" name="role" placeholder="Role" required>
-                <button class="form-button" type="submit">Add Player</button>
-                <!-- Flashing message-->
-              <!-- Flash messages area -->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="flash-messages">
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-        </div>
-    {% endif %}
-    {% endwith %}
-            </form>
-        </div>
-    </div>
-<p class="Instruction-player"> Search for your favourite player's statistics! 
-    Enjoy the experience, and don’t forget to add your favourite player to the list!!!!!
-</p>
-<div class="Serach-bar">
-    <form action="{{url_for('search')}}" method="GET">
-        <input type="text" name="query" placeholder="Search for a player" required>
-       <div class="sumbit"> <button type="submit">Sumbit</button>
-</div>
-    </form>
-</div>
-
-    <div class="Ranking-grid">    
-         <!-- Players list -->
-    <div class="Ranking-grid">    
-        {% for Cricket in Crickets %}
-        <div class="Brid">
-            <div class="item">
-                <strong class="RSwords">Name:</strong> {{ Cricket[0] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Role:</strong> {{ Cricket[1] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Matches:</strong> {{ Cricket[2] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Average:</strong> {{ Cricket[3] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Innings:</strong> {{ Cricket[4] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Runs:</strong> {{ Cricket[5] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Wickets:</strong> {{ Cricket[6] }}
-            </div>
-            <div class="item">
-                <strong class="RSwords">Team:</strong> {{ Cricket[7] }}
-            </div>
-            
-
-        </div>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Players by Team</h1>
+        {% for team, players in teams_data.items() %}
+            <h2>{{ team }}</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Role</th>
+                        <th>Matches</th>
+                        <th>Average</th>
+                        <th>Innings</th>
+                        <th>Runs</th>
+                        <th>Wickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in players %}
+                        <tr>
+                            <td>{{ player[0] }}</td>
+                            <td>{{ player[1] }}</td>
+                            <td>{{ player[2] }}</td>
+                            <td>{{ player[3] }}</td>
+                            <td>{{ player[4] }}</td>
+                            <td>{{ player[5] }}</td>
+                            <td>{{ player[6] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endfor %}
     </div>
-    </div>
-
-    <!-- Single Player Details -->
-    <div class="Ranking-grid">
-        {% if Player %}
-        <div class="Brid">
-            <div class="item"><strong>Name:</strong> {{ Player[0] }}</div>        
-            <div class="item"><strong>Matches:</strong> {{ Player[1] }}</div>
-            <div class="item"><strong>Innings:</strong> {{ Player[2] }}</div>
-            <div class="item"><strong>Runs:</strong> {{ Player[3] }}</div>
-            <div class="item"><strong>Wickets:</strong> {{ Player[4] }}</div>
-            <div class="item"><strong>Average:</strong> {{ Player[5] }}</div>
-            <div class="item"><strong>Team:</strong> {{ Player[6] }}</div>
-        </div>      
-     {% endif %}
-    </div>
-
-    <footer>
-        <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>
-    </footer>
 </body>
 </html>

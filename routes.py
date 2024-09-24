@@ -37,6 +37,9 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
+        if not username or not password:
+            flash("Please enter both username and password.")
+
         # Rate limiting logic
         ip_address = request.remote_addr
         current_time = time.time()
@@ -50,23 +53,22 @@ def login():
             flash("Too many login attempts. Please try again later in 30 seconds.")
             return render_template('login.html')
 
-        if username and password:
-            conn = get_db_connections()
-            cur = conn.cursor()
-            cur.execute("SELECT password FROM User WHERE username = ?", (username,))
-            user = cur.fetchone()
-            conn.close()
+        # Proceed with login logic
+        conn = get_db_connections()
+        cur = conn.cursor()
+        cur.execute("SELECT password FROM User WHERE username = ?", (username,))
+        user = cur.fetchone()
+        conn.close()
 
-            if user and user[0] == password:  # Check plain text password
-                session['username'] = username  # Store username in session
-                return redirect(url_for('about'))
-            else:
-                flash("Invalid username or password.")
-                login_attempts[ip_address].append(current_time)  # Record the failed attempt
-
-        return render_template('login.html')  # Render login page
+        if user and user[0] == password:  # Check plain text password
+            session['username'] = username  # Store username in session
+            return redirect(url_for('about'))
+        else:
+            flash("Invalid username or password.")
+            login_attempts[ip_address].append(current_time)  # Record the failed attempt
 
     return render_template('login.html')  # Render login page for GET request
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -97,8 +99,7 @@ def register():
         try:
             conn = get_db_connections()
             cur = conn.cursor()
-            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)", 
-            (username, password))
+            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)",(username, password))
             conn.commit()
             conn.close()
             return redirect(url_for('registration_successful'))
@@ -126,30 +127,51 @@ def about():
 
 @app.route('/Players')
 def Players():
-    conn = get_db_connections()
+    conn = get_db_connections()  # Use your defined function here
     cur = conn.cursor()
+    
+    # Query to get all teams and their respective players
     cur.execute("""
-    SELECT
+  SELECT      
+       Teams.TeamName,
         Player.PlayerName,
         Player.Role,
         Matches.Matches,
         Matches.Average,
         Matches.Innings,
         Matches.Runs,
-        Matches.Wickets,
-        Matches.Team
-    FROM Player
+        Matches.Wickets
+    FROM Teams
+    INNER JOIN Player ON Teams.TeamId = Player.TeamId
     INNER JOIN Matches ON Player.PlayerId = Matches.PlayerId
     WHERE Player.Verified = 1
-""")
-    Crickets = cur.fetchall()
+    ORDER BY Teams.TeamName, Player.PlayerName
+    """)
+    
+    players_by_team = cur.fetchall()
     conn.close()
-    return render_template("Players.html", Crickets=Crickets)  # Render players page
+    
+    # Process the data into a dictionary format for easier use in the template
+    teams_data = {}
+    for row in players_by_team:
+        team_name = row[0]
+        player_data = row[1:]
+        
+        if team_name not in teams_data:
+            teams_data[team_name] = []
+        teams_data[team_name].append(player_data)
+    
+    return render_template("Players.html", teams_data=teams_data)
+
+
+
 
 
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query', '')  # Get the search query
+    if len(query) > 10:
+        flash("Player Name is long")
     conn = get_db_connections()
     cur = conn.cursor()
     cur.execute("""
@@ -161,6 +183,9 @@ def search():
 """, ('%' + query + '%',))
     Crickets = cur.fetchall()
     conn.close()
+    if not Crickets:
+        # Check if the results list is empty
+        flash("No players found matching your search.")
     return render_template("Players.html", Crickets=Crickets, query=query)
 
 
