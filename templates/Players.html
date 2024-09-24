@@ -3,41 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css"> 
     <title>Players</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Players by Team</h1>
-        {% for team, players in teams_data.items() %}
-            <h2>{{ team }}</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Player Name</th>
-                        <th>Role</th>
-                        <th>Matches</th>
-                        <th>Average</th>
-                        <th>Innings</th>
-                        <th>Runs</th>
-                        <th>Wickets</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for player in players %}
-                        <tr>
-                            <td>{{ player[0] }}</td>
-                            <td>{{ player[1] }}</td>
-                            <td>{{ player[2] }}</td>
-                            <td>{{ player[3] }}</td>
-                            <td>{{ player[4] }}</td>
-                            <td>{{ player[5] }}</td>
-                            <td>{{ player[6] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endfor %}
+
+<nav class="Nav-bar">
+    <strong><a href="/about">Home</a></strong>
+    <strong><a href="/Players"> Players</a></strong>
+    <strong><a href="/Ranking">Rankings</a></strong>
+    <strong><a href="/Record">Record</a></strong>
+    <strong><a href="/Stats">Statistics</a></strong>
+    <strong><a href="/Review">Review</a></strong>
+    <strong><a href="/login">Logout</a></strong>
+</nav>
+
+<body class="home-style">
+    <h1 class="stats1">Cricket Players</h1>
+    <p class="Instruction-player">Add your favorite player's name and role.<br>
+        Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
+        Once confirmed, their details will be added to our records.</p>
+
+    <!-- Input box for adding player -->
+    <div class="login">
+        <div class="login-box">
+            <p class="playerp">Player Information</p>
+            <form class="Player-form" action="{{ url_for('addplayer') }}" method="post">
+                <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
+                <input class="form-input" type="text" name="role" placeholder="Role" required>
+                <button class="form-button" type="submit">Add Player</button>
+
+                <!-- Flash messages area -->
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                        {% for message in messages %}
+                            <div class="Flash">{{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
     </div>
+
+    <p class="Instruction-player">Search for your favourite player's statistics! 
+        Enjoy the experience, and don’t forget to add your favourite player to the list!</p>
+
+    <!-- Search Bar -->
+    <div class="Serach-bar">
+        <form action="{{url_for('search')}}" method="GET">
+            <input type="text" name="query" placeholder="Search for a player" required>
+           <div class="sumbit"> <button type="submit">Sumbit</button>
+    </div>
+        </form>
+    </div>
+   <!-- Loop through teams and display players -->
+   {% for team, players in teams_data.items() %}
+   <!-- Display team name -->
+   <div class="team-section">
+       <h2 class="stats1">{{ team }}</h2>
+
+       <!-- Players grid -->
+       <div class="players-grid">
+           <!-- Column titles -->
+           <div class="players-grid-title">Player Name</div>
+           <div class="players-grid-title">Role</div>
+           <div class="players-grid-title">Matches</div>
+           <div class="players-grid-title">Average</div>
+           <div class="players-grid-title">Innings</div>
+           <div class="players-grid-title">Runs</div>
+           <div class="players-grid-title">Wickets</div>
+
+           {% for player in players %}
+               <div class="player-cell">{{ player[0] }}</div> <!-- Player Name -->
+               <div class="player-cell">{{ player[1] }}</div> <!-- Role -->
+               <div class="player-cell">{{ player[2] }}</div> <!-- Matches -->
+               <div class="player-cell">{{ player[3] }}</div> <!-- Average -->
+               <div class="player-cell">{{ player[4] }}</div> <!-- Innings -->
+               <div class="player-cell">{{ player[5] }}</div> <!-- Runs -->
+               <div class="player-cell">{{ player[6] }}</div> <!-- Wickets -->
+           {% endfor %}
+       </div>
+   </div>
+{% endfor %}
+
+    <footer>
+        <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>
+    </footer>
 </body>
 </html>

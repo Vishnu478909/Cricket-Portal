@@ -307,6 +307,13 @@ tr {
     color: #2c3e50;
     margin-bottom: 20px;
 }
+.playerp{
+    text-align: center;
+    font-family: monospace;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size:  xx-large;
+}
 .h2{
     font-size: 1.5em;
     color: #2980b9;
@@ -437,8 +444,8 @@ form{
     text-align: center;
     text-decoration: double;
     font-size: xx-large;
-    color: rgb(254, 247, 247);
-    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(9, 2, 2);
+    background-color: rgba(5, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
   
@@ -446,23 +453,41 @@ form{
 
 
 
-/* Players Background */
-.player-body {
-    background-image: url('https://media.gettyimages.com/id/1776075350/photo/kolkata-india-spectators-react-in-the-crowd-during-the-icc-mens-cricket-world-cup-india-2023.jpg?s=612x612&w=0&k=20&c=mbm9NJZsFf4FIyx7It7l2o2jEI_nsX-TNoHFJC60YiQ=');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
+/* Players template */
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
 }
 
-
-.playerp{
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 40px;
-    font-weight: bolder;
+.players-grid-title {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
     text-align: center;
 }
+
+.player-cell {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.player-cell:hover {
+    background-color: #e9e9e9;
+}
+
+.team-section {
+    margin-bottom: 40px;
+}
+
 
 .footerp{
     color: white;
@@ -514,6 +539,24 @@ form{
 
 .sumbit button[type="submit"]:hover {
     background-color: #4a6481;
+}
+/* Flash message */
+.Flash {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;    width: 250px;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #ff4d4d;
+    color: rgb(255, 250, 250);
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: larger;
 }
 
 
@@ -730,7 +773,6 @@ button:hover {
     text-align: center;
     font-size: 150px;
 }
-
 
 
 
