@@ -1,7 +1,7 @@
 import re
 import sqlite3
 import time
-from flask import Flask, render_template, request, redirect, session, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash,abort
 
 app = Flask(__name__)  # Create Flask object
 app.secret_key = 'your_secret_key'  # Secret key for session management
@@ -17,12 +17,11 @@ def get_db_connections():
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template("500.html")  # Render 500 error page
-
+    return render_template("500.html"), 500  # Render 500 error page and return 500 status
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404  # Render 404 error page
+    return render_template("404.html"), 404  # Render 404 error page and return 404 status
 
 
 # Home route
@@ -163,8 +162,6 @@ def Players():
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query', '')  # Get the search query
-    if len(query) > 10:
-        flash("Player Name is long")
     conn = get_db_connections()
     cur = conn.cursor()
     cur.execute("""
@@ -177,7 +174,8 @@ def search():
     players = cur.fetchall()  # Get all players that match the query
     conn.close()
     if not players:
-        flash("No players found matching your search.")
+        abort(404)
+
     # Organize players by team
     teams_data = {}
     for player in players:
@@ -201,7 +199,7 @@ def player_detail(id):
             Matches.Runs,
             Matches.Wickets,
             Matches.Average,
-            Matches.Team
+            Matches.Team_id
         FROM
             Player
         INNER JOIN
@@ -217,7 +215,7 @@ def player_detail(id):
         return render_template("404.html")
 
 
-@app.route('/player', methods=['GET', 'POST'])
+@app.route('/Players', methods=['GET', 'POST'])
 def addplayer():
     if request.method == 'POST':
         player_name = request.form['player_name']
@@ -230,8 +228,8 @@ def addplayer():
     # Validate the length of the player name
     if len(player_name) > 40:
         flash("The player name is quite long")  # Error if too long
-    elif len(player_name) < 2:
-        flash("Please enter a correct player name")  # Error if empty
+    elif len(player_name) < 3:
+        flash("Please enter a correct player name")  # Error if characters are below 2 
     # Validate the length of the role
     elif len(role) > 10:
         flash("Please enter the correct role")  # Error if too long
@@ -281,19 +279,19 @@ def approve_player(player_id):
 
 
 @app.route('/Ranking', defaults={'ranking_id': None})
-@app.route('/Ranking/<int:ranking_id>')
 def Ranking(ranking_id):
-    format = request.args.get('format', 'ALL').upper()
+    format = request.args.get('format', 'ALL').upper()  # Default format is 'ALL'
     conn = get_db_connections()
     cur = conn.cursor()
 
+    # Determine the SQL query based on the format
     if format == 'TEST':
         query = "SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST"
     elif format == 'T20':
         query = "SELECT Ranking, Player_Name, points, team, 'T20' AS Format FROM T20"
     elif format == 'ODI':
         query = "SELECT Ranking, Player_Name, points, team, 'ODI' AS Format FROM ODI"
-    else:
+    elif format == 'ALL':  # For 'ALL', combine results from all formats
         query = """
             SELECT Ranking, Player_Name, points, team, 'T20' AS Format FROM T20
             UNION
@@ -301,15 +299,12 @@ def Ranking(ranking_id):
             UNION
             SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST
         """
-
+    else:
+        abort(500)
+    # Execute the query
     cur.execute(query)
     Crickets = cur.fetchall()
     conn.close()
-
-    if ranking_id is not None:
-        Crickets = [player for player in Crickets if player[0] == ranking_id]
-        if not Crickets:
-            return render_template('404.html')
     return render_template("Ranking.html", Crickets=Crickets)
 
 
@@ -341,12 +336,15 @@ def record():
 
 @app.route('/Stats')
 def Statistics():
-    conn = get_db_connections()
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
-    cur.execute("SELECT Information FROM Statistics")
-    Crickets = cur.fetchall()
-    conn.close()
-    return render_template("Stats.html", Crickets=Crickets)
+     # Query to fetch team names and their respective information
+    cur.execute("SELECT Team, image_url, Information FROM Statistics")
+    TeamsInfo = cur.fetchall()
+    conn.close()  # Close the DB connection
+    # Pass the results to the template
+    return render_template("Stats.html", TeamsInfo=TeamsInfo)
+
 
 
 @app.route('/Review')

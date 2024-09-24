@@ -221,62 +221,7 @@ tr {
     margin-bottom: 20px; 
 }
 
-.team-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center; 
-    padding: 20px; 
-}
 
-.team-box {
-    position: relative; 
- right: 100px;
-    background-color: rgb(165, 133, 241);
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 1800px; /* Set the box width to 90px as per your requirement */
-    margin: 15px auto; /* Centers the box horizontally */
-    box-sizing: border-box; /* Ensures padding is included in the total width */
-}
-
-.team-image {
-    width: 100%; 
-    height: auto; 
-    border-radius: 10px;
-    margin-bottom: 10px; 
-}
-@media (max-width: 768px) {
-    .team-box {
-        padding: 15px;
-        max-width: 90%;
-        margin: 10px auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .team-box {
-        padding: 10px;
-        max-width: 95%;
-        margin: 5px auto;
-    }
-}
-
-
-
-.team-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.team-info {
-    margin-bottom: 10px;
-    text-align: left;
-}
 
 /* This css is used for the headimg of the template execpt Cricket portal */
 .stats1 {
@@ -560,14 +505,11 @@ form{
 }
 
 
-.statsbody{
-    background-image: url(https://media.gettyimages.com/id/1692871520/photo/topshot-indias-captain-rohit-sharma-and-his-teammate-virat-kohli-run-between-the-wickets.jpg?s=612x612&w=0&k=20&c=h6tAbPdP5pSjYYVaD43yNBP06JpokjF9BmEf7fe7BKo=);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+.stats-img{
+ display: block;
+ margin: 0 auto;
+   
 }
-
 /* Record page */
 .recordbody {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
