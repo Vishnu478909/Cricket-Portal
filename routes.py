@@ -147,24 +147,17 @@ def Players():
     WHERE Player.Verified = 1
     ORDER BY Teams.TeamName, Player.PlayerName
     """)
-    
     players_by_team = cur.fetchall()
     conn.close()
-    
     # Process the data into a dictionary format for easier use in the template
     teams_data = {}
     for row in players_by_team:
         team_name = row[0]
         player_data = row[1:]
-        
         if team_name not in teams_data:
             teams_data[team_name] = []
         teams_data[team_name].append(player_data)
-    
     return render_template("Players.html", teams_data=teams_data)
-
-
-
 
 
 @app.route('/search', methods=['GET'])
@@ -175,18 +168,24 @@ def search():
     conn = get_db_connections()
     cur = conn.cursor()
     cur.execute("""
-    SELECT Player.PlayerName, Player.Role, Matches.Matches, Matches.Average, 
-           Matches.Innings, Matches.Runs, Matches.Wickets, Matches.Team
-    FROM Player
-    INNER JOIN Matches ON Player.PlayerId = Matches.PlayerId
-    WHERE Player.Verified = 1 AND Player.PlayerName LIKE ?
-""", ('%' + query + '%',))
-    Crickets = cur.fetchall()
+        SELECT Player.PlayerName, Player.Role, Matches.Matches, Matches.Average, 
+               Matches.Innings, Matches.Runs, Matches.Wickets, Matches.Team
+        FROM Player
+        INNER JOIN Matches ON Player.PlayerId = Matches.PlayerId
+        WHERE Player.Verified = 1 AND Player.PlayerName LIKE ?
+    """, ('%' + query + '%',))
+    players = cur.fetchall()  # Get all players that match the query
     conn.close()
-    if not Crickets:
-        # Check if the results list is empty
+    if not players:
         flash("No players found matching your search.")
-    return render_template("Players.html", Crickets=Crickets, query=query)
+    # Organize players by team
+    teams_data = {}
+    for player in players:
+        team_name = player[7]  # Assuming this is the Team name from your query
+        if team_name not in teams_data:
+            teams_data[team_name] = []
+        teams_data[team_name].append(player)  # Add player to the respective team list
+    return render_template("Players.html", teams_data=teams_data, query=query)
 
 
 @app.route('/Players/<int:id>')
@@ -222,17 +221,32 @@ def player_detail(id):
 def addplayer():
     if request.method == 'POST':
         player_name = request.form['player_name']
-        role = request.form['role']
-        conn = get_db_connections()
-        cur = conn.cursor()
-        cur.execute("""
-            INSERT INTO PendingPlayers (PlayerName, Role)
-            VALUES (?, ?)
-        """, (player_name, role))
-        conn.commit()
-        conn.close()
-        flash('Player will be added after a profanity check.')
-        return redirect(url_for('Players'))
+   # Retrieve player name and role from the submitted form
+    player_name = request.form['player_name']
+    role = request.form['role']
+    # Establish a connection to the database
+    conn = get_db_connections() 
+    cur = conn.cursor()
+    # Validate the length of the player name
+    if len(player_name) > 40:
+        flash("The player name is quite long")  # Error if too long
+    elif len(player_name) < 2:
+        flash("Please enter a correct player name")  # Error if empty
+    # Validate the length of the role
+    elif len(role) > 10:
+        flash("Please enter the correct role")  # Error if too long
+    elif len(role) < 5:
+        flash("Please enter the correct role")  # Error if too short
+    else:
+        flash('Player will be added after a profanity check.')  # Confirmation message
+    # Insert the new player into the PendingPlayers table
+    cur.execute("""
+    INSERT INTO PendingPlayers (PlayerName, Role)
+    VALUES (?, ?)
+""", (player_name, role))
+    # Commit the changes to the database
+    conn.commit()
+    return redirect(url_for('Players'))
 
 
 @app.route('/verify_players')
