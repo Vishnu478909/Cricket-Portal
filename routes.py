@@ -1,27 +1,29 @@
 import re
 import sqlite3
 import time
-from flask import Flask, render_template, request, redirect, session, url_for, flash,abort
+from flask import Flask, render_template, request, redirect, session, url_for, flash, abort
 
 app = Flask(__name__)  # Create Flask object
 app.secret_key = 'your_secret_key'  # Secret key for session management
 login_attempts = {}
-DATABASE = 'Cricket.db.db'
+DATABASE = 'Cricket.db.db'  # sql Database
 
 
 def get_db_connections():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
+    conn = sqlite3.connect(DATABASE)  # Connect to the SQLite database
+    conn.row_factory = sqlite3.Row  # Configure the connection to return rows as dictionaries
+    return conn  # Return the database connection
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template("500.html"), 500  # Render 500 error page and return 500 status
 
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("404.html"), 404  # Render 404 error page and return 404 status
+    # Render 404 error page and return 404 status
+    return render_template("404.html"), 404
 
 
 # Home route
@@ -30,12 +32,12 @@ def home():
     return render_template("login.html")
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])  # Login route for GET and POST requests
 def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-
+    if request.method == 'POST':  # If the form is submitted
+        username = request.form.get('username')  # Get the username
+        password = request.form.get('password')  # Get the password
+    # if user name or password has not inputed this function will be used.
         if not username or not password:
             flash("Please enter both username and password.")
 
@@ -53,7 +55,7 @@ def login():
             return render_template('login.html')
 
         # Proceed with login logic
-        conn = get_db_connections()
+        conn = get_db_connections()  # Establish DB connection
         cur = conn.cursor()
         cur.execute("SELECT password FROM User WHERE username = ?", (username,))
         user = cur.fetchone()
@@ -69,14 +71,12 @@ def login():
     return render_template('login.html')  # Render login page for GET request
 
 
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
-
+    if request.method == 'POST':  # Check if the form was submitted
+        username = request.form.get('username')  # Retrieve username from form
+        password = request.form.get('password')  # Retrieve password from form
+        confirm_password = request.form.get('confirm_password')  # Retrieve confirmed password
         # Validate password and confirm password
         if password != confirm_password:
             flash("Passwords do not match.")
@@ -89,7 +89,7 @@ def register():
         elif len(username) < 5:
             flash("The username should be at least 5 characters long.")
             return redirect(url_for('register'))
-        #the username should be below 10 characters
+        # the username should be below 10 characters
         elif len(username) > 10:
             flash("Username should be at most 10 characters.")
             return redirect(url_for('register'))
@@ -99,43 +99,52 @@ def register():
             return redirect(url_for('register'))
 
         try:
-            conn = get_db_connections()
+            conn = get_db_connections()  # Establish DB connection
             cur = conn.cursor()
-            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)",(username,password))
+            # This query will be executed, when the users
+            # inserts their username and password
+            cur.execute("""
+                        INSERT INTO User (username, password)
+                        VALUES (?, ?)""", (username, password))
             conn.commit()
             conn.close()
+            # after sucessfull registeration, user would be redirected to register sucessfull page
             return redirect(url_for('registration_successful'))
         except sqlite3.IntegrityError:
-            # This fucntion if the username is already stored in the database, it would prevent the 
+            # This fucntion if the username is already stored in the database,
+            # it would prevent username being repeated
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
     return render_template('register.html')  # Render registration page
 
 
+# Route for logout
 @app.route('/logout')
 def logout():
     session.clear()  # Clear all session data
     return redirect(url_for('login'))  # Redirect to the login page
 
 
+# Route for Registeration sucessfull
 @app.route('/registration_successful')
 def registration_successful():
     return render_template('registeration.html')  # Render success page
 
 
+# Route for Homepage of CricketPortal
 @app.route('/about')
 def about():
     return render_template("CricketPortal.html")  # Render Cricket portal page
 
 
+# Route for Players
 @app.route('/Players')
 def Players():
-    conn = get_db_connections()  # Use your defined function here
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
-    
     # Query to get all teams and their respective players
     cur.execute("""
-  SELECT      
+    SELECT
        Teams.TeamName,
         Player.PlayerName,
         Player.Role,
@@ -152,7 +161,7 @@ def Players():
     """)
     players_by_team = cur.fetchall()
     conn.close()
-    # Process the data into a dictionary format for easier use in the template
+    # Process the data by having team name as the title and repsective players listed down
     teams_data = {}
     for row in players_by_team:
         team_name = row[0]
@@ -160,16 +169,18 @@ def Players():
         if team_name not in teams_data:
             teams_data[team_name] = []
         teams_data[team_name].append(player_data)
-    return render_template("Players.html", teams_data=teams_data)
+    return render_template("Players.html", teams_data=teams_data)  # render players page
 
 
+# Route for Serach bar of players page
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query', '')  # Get the search query
-    conn = get_db_connections()
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
+    # This option will get the serached players details
     cur.execute("""
-        SELECT Player.PlayerName, Player.Role, Matches.Matches, Matches.Average, 
+        SELECT Player.PlayerName, Player.Role, Matches.Matches, Matches.Average,
                Matches.Innings, Matches.Runs, Matches.Wickets, Matches.Team
         FROM Player
         INNER JOIN Matches ON Player.PlayerId = Matches.PlayerId
@@ -177,6 +188,7 @@ def search():
     """, ('%' + query + '%',))
     players = cur.fetchall()  # Get all players that match the query
     conn.close()
+    # wrong player details will be redirected to 404 error page
     if not players:
         abort(404)
 
@@ -190,50 +202,22 @@ def search():
     return render_template("Players.html", teams_data=teams_data, query=query)
 
 
-@app.route('/Players/<int:id>')
-def player_detail(id):
-    conn = get_db_connections()
-    cur = conn.cursor()
-    cur.execute("""
-        SELECT
-            Player.PlayerName,
-            Player.Role,
-            Matches.Matches,
-            Matches.Innings,
-            Matches.Runs,
-            Matches.Wickets,
-            Matches.Average,
-            Matches.Team_id
-        FROM
-            Player
-        INNER JOIN
-            Matches ON Player.PlayerId = Matches.PlayerId
-        WHERE
-            Player.PlayerId = ? AND Player.Verified = 1
-    """, (id,))
-    Player = cur.fetchone()
-    conn.close()
-    if Player:
-        return render_template("Players.html", Player=Player)
-    else:
-        return render_template("404.html")
-
-
+# add player route
 @app.route('/Players', methods=['GET', 'POST'])
 def addplayer():
     if request.method == 'POST':
         player_name = request.form['player_name']
-   # Retrieve player name and role from the submitted form
+    # Retrieve player name and role from the submitted form
     player_name = request.form['player_name']
     role = request.form['role']
     # Establish a connection to the database
-    conn = get_db_connections() 
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
     # Validate the length of the player name
     if len(player_name) > 40:
         flash("The player name is quite long")  # Error if too long
     elif len(player_name) < 3:
-        flash("Please enter a correct player name")  # Error if characters are below 2 
+        flash("Please enter a correct player name")  # Error if characters are below 2
     # Validate the length of the role
     elif len(role) > 10:
         flash("Please enter the correct role")  # Error if too long
@@ -251,22 +235,12 @@ def addplayer():
     return redirect(url_for('Players'))
 
 
-@app.route('/verify_players')
-def verify_players():
-    conn = get_db_connections()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM PendingPlayers")  # Fetch all pending players
-    players = cur.fetchall()
-    conn.close()
-    return render_template("verify_players.html", players=players)
-
-
+# Route for Ranking Page
 @app.route('/Ranking', defaults={'ranking_id': None})
 def Ranking(ranking_id):
     format = request.args.get('format', 'ALL').upper()  # Default format is 'ALL'
-    conn = get_db_connections()
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
-
     # Determine the SQL query based on the format
     if format == 'TEST':
         query = "SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST"
@@ -282,6 +256,7 @@ def Ranking(ranking_id):
             UNION
             SELECT Ranking, Player_Name, points, team, 'TEST' AS Format FROM TEST
         """
+    # if wrong url typed it will abort to 500 error page
     else:
         abort(500)
     # Execute the query
@@ -291,10 +266,12 @@ def Ranking(ranking_id):
     return render_template("Ranking.html", Crickets=Crickets)
 
 
-@app.route('/Record')
+@app.route('/Record')  # Define the route for the 'Record' page
 def record():
-    conn = get_db_connections()
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
+    # Execute a SQL query to fetch distinct cricket team records
+    # including test, ODI, and T20 statistics
     cur.execute("""
         SELECT DISTINCT
             t.TeamName AS country,
@@ -312,8 +289,8 @@ def record():
         ORDER BY
             t.TeamName
     """)
-    Crickets = cur.fetchall()
-    conn.close()
+    Crickets = cur.fetchall()  # Fetch all the results from the executed query
+    conn.close()  # Close the database connection
     return render_template("Record.html", Crickets=Crickets)
 
 
@@ -321,7 +298,7 @@ def record():
 def Statistics():
     conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
-     # Query to fetch team names and their respective information
+    # Query to fetch team names and their respective information
     cur.execute("SELECT Team, image_url, Information FROM Statistics")
     TeamsInfo = cur.fetchall()
     conn.close()  # Close the DB connection
@@ -329,21 +306,23 @@ def Statistics():
     return render_template("Stats.html", TeamsInfo=TeamsInfo)
 
 
-
+# Route for Review
 @app.route('/Review')
 def Review():
-    conn = get_db_connections()
+    conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
+    # Fecth all details from reviews for Existing review function
     cur.execute("SELECT * FROM Review WHERE Is_Deleted = 0")
     Crickets = cur.fetchall()
     conn.close()
-    return render_template("Review.html", Crickets=Crickets)
+    return render_template("Review.html", Crickets=Crickets)  # Render template of Review Page
 
 
+# App route for add review option
 @app.route('/addreview', methods=['POST'])
 def add_review():
-    comments = request.form['Review']
-    rating = request.form['rating']
+    comments = request.form['Review']  # Retrieve the review comments from the form data
+    rating = request.form['rating']     # Retrieve the rating value from the form data
     conn = get_db_connections()
     cur = conn.cursor()
 
@@ -352,7 +331,7 @@ def add_review():
         flash("The review should be below 200 words.")  # Use flash to show a message
         conn.close()
         return redirect('/404')  # Redirect back to reviews page
-
+    # The revuew will be added to the Review table
     cur.execute("""INSERT INTO Review(comments, rating) VALUES (?, ?)""",
                 (comments, rating))
     conn.commit()
