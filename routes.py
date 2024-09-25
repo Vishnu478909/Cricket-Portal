@@ -81,16 +81,19 @@ def register():
         if password != confirm_password:
             flash("Passwords do not match.")
             return redirect(url_for('register'))
-
+        # The lenght of the password should be atleat 7 characters long
         elif len(password) < 7:
             flash("Password should be at least 7 characters long.")
             return redirect(url_for('register'))
+        # The lenght of the username be minimum 5 character long
         elif len(username) < 5:
             flash("The username should be at least 5 characters long.")
             return redirect(url_for('register'))
+        #the username should be below 10 characters
         elif len(username) > 10:
             flash("Username should be at most 10 characters.")
             return redirect(url_for('register'))
+        # Password should contain one chracters
         elif not re.search(r'[A-Z]', password):
             flash("Password should contain at least one uppercase letter.")
             return redirect(url_for('register'))
@@ -103,6 +106,7 @@ def register():
             conn.close()
             return redirect(url_for('registration_successful'))
         except sqlite3.IntegrityError:
+            # This fucntion if the username is already stored in the database, it would prevent the 
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
     return render_template('register.html')  # Render registration page
@@ -255,27 +259,6 @@ def verify_players():
     players = cur.fetchall()
     conn.close()
     return render_template("verify_players.html", players=players)
-
-
-@app.route('/approve_player/<int:player_id>')
-def approve_player(player_id):
-    conn = get_db_connections()
-    cur = conn.cursor()
-    cur.execute("SELECT PlayerName, Role FROM PendingPlayers WHERE id=?", (player_id,))
-    player = cur.fetchone()
-
-    if player:
-        player_name, role = player
-        cur.execute("""
-            INSERT INTO Player (PlayerName, Role, Verified)
-            VALUES (?, ?, 1)
-        """, (player_name, role))
-
-        cur.execute("DELETE FROM PendingPlayers WHERE id=?", (player_id,))
-
-    conn.commit()
-    conn.close()
-    return redirect(url_for('verify_players'))
 
 
 @app.route('/Ranking', defaults={'ranking_id': None})

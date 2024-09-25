@@ -49,7 +49,10 @@
 .Nav-bar a:hover{
     background: #ff5722; 
     color: #ffffff; 
-}
+    text-decoration: none; /* Removes underline from links */
+    }
+    
+
 
 .Nav-bar{
     font-family:  Dancing Script;
@@ -386,10 +389,11 @@ form{
 
 /* Players template instructions */
 .Instruction-player {
+    font-family: Playwrite Deutschland Grundschrift    ;
     text-align: center;
     text-decoration: double;
     font-size: xx-large;
-    color: rgb(9, 2, 2);
+    color: rgb(231, 226, 226);
     background-color: rgba(5, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
@@ -419,6 +423,9 @@ form{
 }
 
 .player-cell {
+    
+   font-family: Playwrite Deutschland Grundschrift   ;
+   
     background-color: #f1f1f1;
     padding: 10px;
     text-align: center;
