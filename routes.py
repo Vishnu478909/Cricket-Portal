@@ -101,7 +101,7 @@ def register():
         try:
             conn = get_db_connections()
             cur = conn.cursor()
-            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)",(username, password))
+            cur.execute("INSERT INTO User (username, password) VALUES (?, ?)",(username,password))
             conn.commit()
             conn.close()
             return redirect(url_for('registration_successful'))

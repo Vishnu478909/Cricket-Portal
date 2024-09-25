@@ -5,56 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review</title>
     <link rel="stylesheet" href="/static/style.css"> 
-    <style>
-        body {
-            background: url(https://media.gettyimages.com/id/1770829622/photo/mumbai-india-rohit-sharma-of-india-celebrates-following-the-icc-mens-cricket-world-cup-india.jpg?s=612x612&w=0&k=20&c=pAURmGHk4fq0DwSkDB_qhcQLaMeWRffZAAkO_KVgMP4=);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        form {
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 50%;
-            margin: 50px auto;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        label {
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            font-size: 1rem;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            resize: vertical;
-            color: #333;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            color: #333;
-        }
-
-      
-
-       
-    </style>
+    
 </head>
 <body class="home-style">
     <header>
@@ -92,12 +43,12 @@
             </p>
         </div>
 
-        <form action="/addreview" method="post">
-            <label for="Review">Review</label>
-            <textarea id="Review" name="Review" rows="5" cols="60" required></textarea><br>
+        <form  class= "Review-Form" action="/addreview" method="post">
+            <label class = "Review-form" for="Review">Review</label>
+            <textarea class="Review-label" id="Review" name="Review" rows="5" cols="60" required></textarea><br>
 
-            <label for="rating">Rating</label>
-            <select id="rating" name="rating" required>
+            <label class="Review-label" for="rating">Rating</label>
+            <select class="Review-select" id="rating" name="rating" required>
                 <option value="5">5</option>
                 <option value="4">4</option>
                 <option value="3">3</option>
@@ -106,10 +57,10 @@
                 <option value="0">0</option>
             </select><br><br>
 
-           <button>Sumbit</button>
+           <button class="Review-button">Sumbit</button>
         </form>
 
-        <div class="ce">
+        <div class="Instructions-INFO"">
             <h2 class="h2">Existing Reviews:</h2>
             <ul>
                 {% for review in Crickets %}
