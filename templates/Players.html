@@ -34,7 +34,7 @@
     <div class="login">
         <div class="Player-login-box">
             <p class="playerp">Player Information</p>
-            <form class="Player-form" action="{{ url_for('addplayer') }}" method="post">
+            <form class="Player-form" action="{{ url_for('Add_player') }}" method="post">
                 <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
                 <input class="form-input" type="text" name="role" placeholder="Role" required>
                 <button class="Ranking-button" type="submit">Add Player</button>
@@ -59,7 +59,7 @@
 
     <!-- Search Bar -->
     <div class="Serach-bar">
-        <form action="{{ url_for('search') }}" method="GET">
+        <form action="{{ url_for('Search') }}" method="GET">
             <input type="text" name="query" placeholder="Search for a player" required>
             <button class="Ranking-button" type="submit">Submit</button>
         </form>

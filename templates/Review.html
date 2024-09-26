@@ -5,16 +5,7 @@
 </head>
 <body class="home-style">
     <header>
-        <nav class="Nav-bar">  <!-- Navigation bar -->
-            <strong><a href="/about">Home</a></strong>
-            <strong><a href="/Players">Players</a></strong>
-            <strong><a href="/Ranking">Rankings</a></strong>
-            <strong><a href="/Record">Record</a></strong>
-            <strong><a href="/Stats">Statistics</a></strong>
-            <strong><a href="/Review">Review</a></strong>
-            <strong><a href="/login">Logout</a></strong>
-        </nav>
-    </header>
+     
     
     <main>
         <h1 class="stats1">Review Time</h1>
@@ -60,7 +51,7 @@
             <h2 class="h2">Existing Reviews:</h2>
             <ul>
                 {% for review in Crickets %}
-                    <li class="cric">{{ review[1] }} <br> - Rating: {{ review[2] }}</li>
+                    <li class="cric">{{ review[1] }} <br> <br> - Rating: {{ review[2] }}</li>
                 {% endfor %}
             </ul>
             {% with messages = get_flashed_messages() %}
