@@ -49,7 +49,7 @@ def login():
         # Clean up old attempts
         attempts = [t for t in attempts if current_time - t < 30]
         login_attempts[ip_address] = attempts
-
+        # If the user attempts more than 5 five times error message will be flashed with time restriction added
         if len(attempts) >= 5:
             flash("Too many login attempts. Please try again later in 30 seconds.")
             return render_template('login.html')
@@ -104,8 +104,8 @@ def register():
             # This query will be executed, when the users
             # inserts their username and password
             cur.execute("""
-                        INSERT INTO User (username, password)
-                        VALUES (?, ?)""", (username, password))
+                        INSERT INTO User (username, password) VALUES (?, ?)""",
+                        (username, password))
             conn.commit()
             conn.close()
             # after sucessfull registeration, user would be redirected to register sucessfull page

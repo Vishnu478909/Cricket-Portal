@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review</title>
     <link rel="stylesheet" href="/static/style.css"> 
-    
 </head>
 <body class="home-style">
     <header>
-        <nav class="Nav-bar">
+        <nav class="Nav-bar">  <!-- Navigation bar -->
             <strong><a href="/about">Home</a></strong>
             <strong><a href="/Players">Players</a></strong>
             <strong><a href="/Ranking">Rankings</a></strong>
             <strong><a href="/Record">Record</a></strong>
             <strong><a href="/Stats">Statistics</a></strong>
             <strong><a href="/Review">Review</a></strong>
-
             <strong><a href="/login">Logout</a></strong>
         </nav>
     </header>
     
     <main>
         <h1 class="stats1">Review Time</h1>
-        <div class="Instructions-INFO">
+        <div class="Instructions-INFO">  <!-- Instructions grid layout -->
             <h2 class="h2">Rules</h2>
             <p class="cric">
                 <strong>1. Objectivity:</strong><br>
@@ -41,10 +39,10 @@
                 Please ensure that comments contribute positively to the discussion.<br>
                 <strong>We trust you to use this feature wisely.</strong>
             </p>
-        </div>
+        </div> <!-- Instruction grid layout -->
 
-        <form  class= "Review-Form" action="/addreview" method="post">
-            <label class = "Review-form" for="Review">Review</label>
+        <form class="Review-Form" action="/addreview" method="post">  <!-- Review submission form -->
+            <label class="Review-form" for="Review">Review</label>
             <textarea class="Review-label" id="Review" name="Review" rows="5" cols="60" required></textarea><br>
 
             <label class="Review-label" for="rating">Rating</label>
@@ -57,10 +55,10 @@
                 <option value="0">0</option>
             </select><br><br>
 
-           <button class="Review-button">Sumbit</button>
+           <button class="Review-button">Submit</button>  <!-- Button to submit the review -->
         </form>
 
-        <div class="Instructions-INFO"">
+        <div class="Instructions-INFO">  <!-- Section for existing reviews -->
             <h2 class="h2">Existing Reviews:</h2>
             <ul>
                 {% for review in Crickets %}

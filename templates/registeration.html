@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% block title%} Login Page {% endblock %}
+{% block title %}Login Page{% endblock %}
 {% block content %}
-<div class="login">
-<div class="login-box">
-    <p> Your account has been created sucessfully !</p>
-    <p> <a href="{{ url_for ('login')}}"> Click here to log in!!!</a></p>
-</div>
-</div>
+<div class="login">  <!-- Container for the login success message -->
+    <div class="login-box">  <!-- Box for the message content -->
+        <p>Your account has been created successfully!</p>
+        <p><a href="{{ url_for('login') }}">Click here to log in!!!</a></p>
+    </div>  <!-- End of message box -->
+</div>  <!-- End of login container -->
 {% endblock %}

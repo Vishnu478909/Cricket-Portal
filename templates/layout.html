@@ -6,156 +6,157 @@
     <title>Document</title>
     <style>
         /* Layout Styles */
-.layout-html, .layout-body {
-    height: 100%;
-    margin: 0;
-}
+        .layout-html, .layout-body {
+            height: 100%;
+            margin: 0;
+        }
 
-.layout-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure body takes full height */
-}
+        .layout-body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full height */
+        }
 
-/* Background Styles */
-.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(https://media.gettyimages.com/id/1336661954/photo/leeds-england-virat-kohli-of-india-looks-on-with-mohammed-shami-ajinkya-rahane-kl-rahul-and.jpg?s=612x612&w=0&k=20&c=2QtBdIjJIr6_i7ryac5NT8wcAHCzQSIpnDkOLgehodw=);
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -1;
-}
+        /* Background Styles */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(https://media.gettyimages.com/id/1336661954/photo/leeds-england-virat-kohli-of-india-looks-on-with-mohammed-shami-ajinkya-rahane-kl-rahul-and.jpg?s=612x612&w=0&k=20&c=2QtBdIjJIr6_i7ryac5NT8wcAHCzQSIpnDkOLgehodw=);
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
 
-/* Content Styles */
-.content {
-    flex: 1; /* Allow content to grow and push footer down */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* Content Styles */
+        .content {
+            flex: 1; /* Allow content to grow and push footer down */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* Login Box Styles */
-.login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-}
+        /* Login Box Styles */
+        .login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
 
-.login-box {
-    align-items: center;
-    justify-content: center;
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    overflow: hidden; 
-}
+        .login-box {
+            align-items: center;
+            justify-content: center;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            overflow: hidden; 
+        }
 
-/* Text Styles */
-h1 {
-    margin: 0 0 20px;
-    color: #333;
-}
+        /* Text Styles */
+        h1 {
+            margin: 0 0 20px;
+            color: #333;
+        }
 
-label {
-    display: block;
-    margin: auto;
-    font-weight: bold;
-}
+        label {
+            display: block;
+            margin: auto;
+            font-weight: bold;
+        }
 
-input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-button {
-    background-color: lightblue;
-    color: rgb(8, 7, 7);
-    font-size: xx-large;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-}
+        button {
+            background-color: lightblue;
+            color: rgb(8, 7, 7);
+            font-size: xx-large;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
 
-/* Link and Paragraph Styles */
-p {
-    font-family: Georgia;
-    font-size: larger;
-    text-align: center;
-}
+        /* Link and Paragraph Styles */
+        p {
+            font-family: Georgia;
+            font-size: larger;
+            text-align: center;
+        }
 
-a {
-    color: #2dbeea;
-}
+        a {
+            color: #2dbeea;
+        }
 
-a:hover {
-    font-size: medium;
-    text-decoration: underline;
-}
+        a:hover {
+            font-size: medium;
+            text-decoration: underline;
+        }
 
-/* Flash Message Styles */
-.Flash {
-    width: 250px;
-    padding: 10px;
-    margin: 20px auto;
-    background-color: #ff4d4d;
-    color: white;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: larger;
-}
+        /* Flash Message Styles */
+        .Flash {
+            width: 250px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: larger;
+        }
 
-/* Error Message Styles */
-.errormessage {
-    color: darkred;
-    background-color: #fdd;
-    border: 1px solid red;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    text-align: center;
-}
+        /* Error Message Styles */
+        .errormessage {
+            color: darkred;
+            background-color: #fdd;
+            border: 1px solid red;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
 
-/* Footer Styles */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center; 
-    padding: 10px;
-    width: 100%;
-    font-size: 14px;
-}
-
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center; 
+            padding: 10px;
+            width: 100%;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body class="layout-body">
-    <div class="background"></div>
-    <div class="content">
-        <div class="box">
+    <div class="background"></div>  <!-- Background div -->
+    
+    <div class="content">  <!-- Main content div -->
+        <div class="box">  <!-- Box for content -->
             {% block content %}
             {% if error_message %}
             {% endif %}
             {% endblock %}
-        </div>
-    </div>
+        </div>  <!-- End of box for content -->
+    </div>  <!-- End of main content div -->
+    
     <footer>
-        <p>&copy; Cricket Portal Vishnu 2024.</p>
+        <p>&copy; Cricket Portal Vishnu 2024.</p>  <!-- Footer text -->
     </footer>
 </body>
 </html>

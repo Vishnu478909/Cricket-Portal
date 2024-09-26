@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Register Page{% endblock %}
 {% block content %}
-<div class="login">
-    <div class="login-box">
-        <p>To access this cricket portal, please register an account.</p>
-        <h1>Register</h1>
+<div class="login">  <!-- Container for registration form -->
+    <div class="login-box">  <!-- Box for the registration content -->
+        <p>To access this cricket portal, please register an account.</p> <!-- Instruction-->
+        <h1>Register</h1> <!-- Header of the register box-->
 
         <form method="POST" action="{{ url_for('register') }}">
             <label for="username">Username:</label>
@@ -19,22 +19,21 @@
             <button type="submit">Register</button>
         </form>
 
-        <!-- Flash messages container should have overflow hidden -->
+        <!-- Flash messages container -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class="flash-messages">
+            <div class="flash-messages">  <!-- Container for flash messages -->
                 <ul>
                     {% for message in messages %}
-                        <div class="Flash">{{ message }}</div>
+                        <div class="Flash">{{ message }}</div>  <!-- Individual flash message -->
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
         {% endwith %}
         
-        <!-- This must stay at the bottom of login-box -->
+        <!-- Link to login for existing users -->
         <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
-    </div>
-</div>
-
+    </div>  <!-- End of login box -->
+</div>  <!-- End of login container -->
 {% endblock %}
