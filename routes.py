@@ -3,6 +3,8 @@ import sqlite3
 import time
 from flask import Flask, render_template, request, redirect, session, url_for, flash, abort
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+
 
 app = Flask(__name__)  # Create Flask object
 app.secret_key = 'your_secret_key'  # Secret key for session management
@@ -34,6 +36,16 @@ def page_not_found(e):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template("login.html")
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            flash("Please log in to access this page.")
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 # ogin route
@@ -143,6 +155,7 @@ def about():
 
 # Route for Players
 @app.route('/Players')
+@login_required
 def Players():
     conn = get_db_connections()  # Establish DB connection
     cur = conn.cursor()
@@ -178,6 +191,7 @@ def Players():
 
 # Route for Serach bar of players page
 @app.route('/search', methods=['GET'])
+@login_required
 def Search():
     query = request.args.get('query', '')  # Get the search query
     conn = get_db_connections()  # Establish DB connection
@@ -208,6 +222,7 @@ def Search():
 
 # add player route
 @app.route('/Players', methods=['GET', 'POST'])
+@login_required
 def Add_player():
     if request.method == 'POST':
         player_name = request.form['player_name']
@@ -238,6 +253,7 @@ def Add_player():
 
 # Route for Ranking Page
 @app.route('/Ranking', defaults={'ranking_id': None})
+@login_required
 def Ranking(ranking_id):
     format = request.args.get('format', 'ALL').upper()  # Default format is 'ALL'
     conn = get_db_connections()
@@ -266,6 +282,7 @@ def Ranking(ranking_id):
 
 
 @app.route('/Record')  # Define the route for the 'Record' page
+@login_required
 def record():
     conn = get_db_connections()
     cur = conn.cursor()
@@ -294,9 +311,10 @@ def record():
 
 
 # stats route
-@app.route('/stats')  
+@app.route('/stats')
+@login_required
 def Statistics():
-    conn = get_db_connections()  
+    conn = get_db_connections()
     cur = conn.cursor()
     # Query to fetch team names and their respective information
     cur.execute("SELECT Team, image_url, Information FROM Statistics")
@@ -307,6 +325,7 @@ def Statistics():
 
 # Route for Review
 @app.route('/Review')
+@login_required
 def Review():
     conn = get_db_connections()
     cur = conn.cursor()
@@ -319,6 +338,7 @@ def Review():
 
 # App route for add review option
 @app.route('/addreview', methods=['POST'])
+@login_required
 def add_review():
     comments = request.form['Review']  # Retrieve the review comments from the form data
     rating = request.form['rating']     # Retrieve the rating value from the form data
