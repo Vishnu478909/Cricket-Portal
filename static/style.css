@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+    background: linear-gradient(135deg,#b9ac8f 0%, #d6c5c6 100%);
     color: #333;
     display: flex;
     flex-direction: column;
@@ -11,22 +11,8 @@
     overflow-x:hidden ;
 }
 
-.body{
-    background: linear-gradient(135deg,#b9ac8f 0%, #f7797d 100%);
-    color: #333;
-    text-align: center;
-    text-decoration: solid;
-    text-overflow: clip;
-    letter-spacing: 7px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgb(106, 68, 68);
-    position: relative;
-    z-index: 1;
-    border-radius: 8px;
-    background-size: 200%;
-    animation: 15s;
-
+.viart{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Nav bar */
@@ -102,13 +88,13 @@ img.Image-container{
 }
 
 footer{
-    background-color: #333; 
+    position: fixed;
+    background-color: #333;
     color: white;
-    text-align: center;
+    text-align: center; 
     padding: 10px;
     width: 100%;
     font-size: 14px;
-    bottom: 0; /* stays in bottom */;
 
 }
 
@@ -233,7 +219,7 @@ tr {
     text-align: center;
     font-size: 36px;
     padding: 20px;
-    background-color: rgba(218, 208, 208, 0.9); 
+    background-color: whitesmoke; 
     color: black;
     font-family: Pinyon Script;
     margin-top: 20px;
@@ -243,8 +229,12 @@ tr {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 .playersbody{
+
+  
+        font-family: 'Roboto', sans-serif; /* Use Roboto font */
+
     background-color: #f4f4f4;
     font-family: Arial, Helvetica, sans-serif;
     color:#333;
@@ -271,45 +261,73 @@ tr {
     margin-top: 20px;
 }
 
-.player-container{
-    display: flex;
-    justify-content: space-between;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* Players template */
+.playersbody {
     align-items: center;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* Use Roboto font */
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+.playerh1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.playerp {
+    text-align: center;
+    font-family: monospace;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: xx-large;
+}
+
+.h2 {
+    font-size: 1.5em;
+    color: #2980b9;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.player-container {
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
     flex-wrap: wrap;
-padding: 0;
+    padding: 0;
     gap: 15px;
 }
 
-.player{
-   flex: 1 1 100%;
-   margin: 0;
-    flex-direction: column-reverse;
-    border: 1px black;
-    width: 30%;
-    padding: 10px;
-    border: 2px solid;
+.player {
+    align-items: center;
+    flex: 1 1 auto; /* Allow flexibility */
+    margin: 0;
+    flex-direction: column;
+    border: 2px solid; /* Changed border property */
     padding: 15px;
-    display: inline-block;
     border-radius: 8px;
-    background-color:pink;
+    background-color: pink;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: auto;
     text-align: center;
 }
 
-.player-info{
+.player-info {
     text-align: center;
-    border: #333;
-    border-radius: 1px solid black;
+    border: 1px solid #333; /* Corrected border property */
+    border-radius: 1px;
     margin-bottom: 5px;
     background-color: whitesmoke;
-    
 }
 
 .players-container > .player {
     width: 100%;
-    max-width: 250px;
+    max-width: 250px; /* Adjust as needed */
 }
 
 .player-info:nth-child(2) {
@@ -327,6 +345,7 @@ padding: 0;
         max-width: 100%;
     }
 }
+
 /*Player add player form css */
 .player-form{
     background-color: rgba(255, 255, 255, 0.9); /*white */
@@ -392,8 +411,8 @@ form{
     font-family: 'Playfair Display', serif;
     text-align: center;
     font-size: 2.5em;
-    color: #fff;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: #060404;
+    background: linear-gradient(to right, #c6d9d9, #eceff4);
     padding: 15px;
     border-radius: 8px;
    
@@ -404,7 +423,9 @@ form{
 
 /* Players template */
 
-.players-grid {
+.players-grid { position: relative;
+    width: auto;
+    right: 5px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
@@ -415,22 +436,29 @@ form{
 }
 
 .players-grid-title {
+    width: auto;
+    position: relative;
+    right: 7px;
     background-color: #007bff;
     color: white;
     font-weight: bold;
     padding: 12px;
     text-align: center;
 }
-
 .player-cell {
-    
-   font-family: Playwrite Deutschland Grundschrift   ;
    
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Mu5mxKOzY.woff2) format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
     background-color: #f1f1f1;
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
+
 
 .player-cell:hover {
     background-color: #e9e9e9;
@@ -446,10 +474,6 @@ form{
     font-family:Georgia ;
     font-size: larger;
     text-align: center;
-}
-.Title-column{
-    font-size: 20px;
-    color: rgb(0, 0, 0);
 }
 .Serach-bar {
     display: flex;
@@ -492,24 +516,70 @@ form{
 .sumbit button[type="submit"]:hover {
     background-color: #4a6481;
 }
-/* Flash message */
-.Flash {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/roboto/v32/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
-    unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;    width: 250px;
-    padding: 10px;
-    margin: 20px auto;
-    background-color: #ff4d4d;
-    color: rgb(255, 250, 250);
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: larger;
+.instructions-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 30px auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
 }
+
+.instructions-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 30px auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+}
+
+.instructions-list li {
+    margin-bottom: 15px;
+    line-height: 1.8;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600; /* Slightly bolder text */
+}
+
+.instructions-list li strong {
+    color: #000;
+    font-weight: 700; /* Bolder and darker for emphasis */
+}
+
+.roles-list {
+    margin-left: 25px;
+    list-style-type: disc;
+    font-size: 18px;
+    color: #444; /* Added color to distinguish the list items */
+}
+
+.roles-list li {
+    margin-bottom: 10px;
+    font-weight: 500; /* Slightly bolder list items */
+}
+
+.instructions-list li:hover {
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    color: #111; /* Darker font color on hover */
+}
+
 
 
 .stats-img{
@@ -580,12 +650,7 @@ h2, h3, h4 {
     color: #333;
 }
 
-footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.9em;
-    color: #555;
-}
+
 .content p{
     padding: 10px;
     background-color: black;
@@ -714,7 +779,7 @@ details summary{
 }
 
 .Review-Form {
-    background: rgb(237, 175, 175);
+    background:whitesmoke;
       color: #333;
       padding: 30px;
       border-radius: 15px;
@@ -746,7 +811,7 @@ details summary{
   }
   
   .Review-textarea:focus {
-      border-color: #8e44ad;
+      border-color: #b8ddaf;
       background-color: #fff;
       outline: none;
   }
@@ -763,7 +828,7 @@ details summary{
   }
   
   .Review-select:focus {
-      border-color: #8e44ad;
+      border-color: #c2db92;
       background-color: #fff;
       outline: none;
   }
@@ -944,15 +1009,6 @@ a:hover {
     font-size: larger;
 }
 
-/* Footer Styles */
-footer {
-    position: fixed;
-    background-color: #333;
-    color: white;
-    text-align: center; 
-    padding: 10px;
-    width: 100%;
-    font-size: 14px;
-}
+
 
 

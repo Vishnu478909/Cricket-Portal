@@ -1,18 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
- <link rel="stylesheet" href="/static/style.css"> 
-    <title>Players</title>
-
-
-
+<link rel="stylesheet" href="/static/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>Players</title>
 
 <body class="home-style">
     <h1 class="stats1">Cricket Players</h1>
-    <p class="Instruction-player">Add your favorite player's name and role.<br>
-        Please provide the details of the player. We will review the information to ensure that the player is valid.<br>
-        Once confirmed, their details will be added to our records.</p>
+    
+    <!-- Page Instructions -->
+    <p class="Instruction-player">Welcome to the Players page! Here, you can add information about your favorite cricket players, search for player statistics, and explore detailed data about players across different teams.</p>
+
+    <ul>
+        <p class="Instruction-player">
+            Here’s how to interact with the page:
+            <ul class="instructions-list">
+                <strong>Adding a Player:</strong> Enter the player's name and role using the input form. Once submitted, the player will be reviewed and added to our records. <br><br>
+                <strong>Roles:</strong> You can choose from the following roles:
+                    <ul class="roles-list">
+                        <li>Batsman</li>
+                        <li>Bowler</li>
+                        <li>All-rounder</li>
+                        <li>Wicket-keeper</li>
+                    </ul>
+                
+                <strong>Searching:</strong> Use the search bar to find statistics about your favorite players. Simply type in their name and click "Submit." <br>
+                <strong>Player Data:</strong> Below, you'll find player statistics listed by team. You can explore their performance by looking at the number of matches, average, innings, runs, and wickets.
+            </ul>
+        </p>
 
     <!-- Input box for adding player -->
     <div class="login">
@@ -22,14 +37,7 @@
                 <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
                 <input class="form-input" type="text" name="role" placeholder="Role" required>
                 <button class="Ranking-button" type="submit">Add Player</button>
-                <p class="login-p">The roles are:</p>
-            <div class="login-p roles">
-    <span>Batsman</span><br>
-    <span>Bowler</span><br>
-    <span>All-rounder</span><br>
-    <span>Wicket-keeper</span>
-    </div>
-
+          
                 <!-- Flash messages area -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -46,47 +54,50 @@
         </div>
     </div>
 
-    <p class="Instruction-player">Search for your favourite player's statistics! 
-        Enjoy the experience, and don’t forget to add your favourite player to the list!</p>
+    <p class="Instruction-player">Search for your favourite player's statistics! Enjoy the experience, and don’t forget to add your favourite player to the list!</p>
 
     <!-- Search Bar -->
     <div class="Serach-bar">
         <form action="{{url_for('search')}}" method="GET">
             <input type="text" name="query" placeholder="Search for a player" required>
-            <button class="Ranking-button"type="Sumbit">Sumbit</button>
-    </div>
+            <button class="Ranking-button" type="Sumbit">Sumbit</button>
         </form>
     </div>
-   <!-- Loop through teams and display players -->
-   {% for team, players in teams_data.items() %}
-   <!-- Display team name -->
-   <div class="team-section">
-       <h2 class="stats1">{{ team }}</h2>
 
-       <!-- Players grid -->
-       <div class="players-grid">
-           <!-- Column titles -->
-           <div class="players-grid-title">Player Name</div>
-           <div class="players-grid-title">Role</div>
-           <div class="players-grid-title">Matches</div>
-           <div class="players-grid-title">Average</div>
-           <div class="players-grid-title">Innings</div>
-           <div class="players-grid-title">Runs</div>
-           <div class="players-grid-title">Wickets</div>
+    <!-- Loop through teams and display players -->
+    {% for team, players in teams_data.items() %}
+    <!-- Display team name -->
+    <div class="team-section">
+        <h2 class="stats1">{{ team }}</h2>
 
-           {% for player in players %}
-               <div class="player-cell">{{ player[0] }}</div> <!-- Player Name -->
-               <div class="player-cell">{{ player[1] }}</div> <!-- Role -->
-               <div class="player-cell">{{ player[2] }}</div> <!-- Matches -->
-               <div class="player-cell">{{ player[3] }}</div> <!-- Average -->
-               <div class="player-cell">{{ player[4] }}</div> <!-- Innings -->
-               <div class="player-cell">{{ player[5] }}</div> <!-- Runs -->
-               <div class="player-cell">{{ player[6] }}</div> <!-- Wickets -->
-           {% endfor %}
-       </div>
-   </div>
-{% endfor %}
+        <!-- Players grid -->
+        <div class="players-grid">
+            <!-- Column titles -->
+            <div class="players-grid-title">Player Name</div>
+            <div class="players-grid-title">Role</div>
+            <div class="players-grid-title">Matches</div>
+            <div class="players-grid-title">Average</div>
+            <div class="players-grid-title">Innings</div>
+            <div class="players-grid-title">Runs</div>
+            <div class="players-grid-title">Wickets</div>
 
+            {% for player in players %}
+                <div class="player-cell">{{ player[0] }}</div> <!-- Player Name -->
+                <div class="player-cell">{{ player[1] }}</div> <!-- Role -->
+                <div class="player-cell">{{ player[2] }}</div> <!-- Matches -->
+                <div class="player-cell">{{ player[3] }}</div> <!-- Average -->
+                <div class="player-cell">{{ player[4] }}</div> <!-- Innings -->
+                <div class="player-cell">{{ player[5] }}</div> <!-- Runs -->
+                <div class="player-cell">{{ player[6] }}</div> <!-- Wickets -->
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Go Back Button -->
+    <div class="go-back">
+        <a class="Ranking-button" href="{{ url_for('Players') }}">Go Back to Players</a>
+    </div>
 
 </body>
 
