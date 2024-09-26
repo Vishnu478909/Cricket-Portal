@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css"> 
-    <title>Players</title>
-</head>
+{% extends "layout.html" %}
+{% block content %}
 
-<nav class="Nav-bar">
-    <strong><a href="/about">Home</a></strong>
-    <strong><a href="/Players"> Players</a></strong>
-    <strong><a href="/Ranking">Rankings</a></strong>
-    <strong><a href="/Record">Record</a></strong>
-    <strong><a href="/Stats">Statistics</a></strong>
-    <strong><a href="/Review">Review</a></strong>
-    <strong><a href="/login">Logout</a></strong>
-</nav>
+
+ <link rel="stylesheet" href="/static/style.css"> 
+    <title>Players</title>
+
+
+
 
 <body class="home-style">
     <h1 class="stats1">Cricket Players</h1>
@@ -25,17 +16,20 @@
 
     <!-- Input box for adding player -->
     <div class="login">
-        <div class="login-box">
+        <div class="Player-login-box">
             <p class="playerp">Player Information</p>
             <form class="Player-form" action="{{ url_for('addplayer') }}" method="post">
                 <input class="form-input" type="text" name="player_name" placeholder="Player Name" required>
                 <input class="form-input" type="text" name="role" placeholder="Role" required>
-                <button class="form-button" type="submit">Add Player</button>
-                <p class="playerp"> The ROLES ARE: <br>
-                    <li class="playerp"> BATSMAN <BR> </li>
-                     <li class="playerp">BOWLER <BR></li>   
-                    <LI class="playerp">ALL-ROUNDER</LI>
-                   <li class="playerp">WICKET-KEEPER</li>
+                <button class="Ranking-button" type="submit">Add Player</button>
+                <p class="login-p">The roles are:</p>
+            <div class="login-p roles">
+    <span>Batsman</span><br>
+    <span>Bowler</span><br>
+    <span>All-rounder</span><br>
+    <span>Wicket-keeper</span>
+    </div>
+
                 <!-- Flash messages area -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -59,7 +53,7 @@
     <div class="Serach-bar">
         <form action="{{url_for('search')}}" method="GET">
             <input type="text" name="query" placeholder="Search for a player" required>
-           <div class="sumbit"> <button type="submit">Sumbit</button>
+            <button class="Ranking-button"type="Sumbit">Sumbit</button>
     </div>
         </form>
     </div>
@@ -94,8 +88,6 @@
 {% endfor %}
 
 
-    <footer>
-        <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>
-    </footer>
 </body>
-</html>
+
+{% endblock %}

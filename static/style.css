@@ -377,7 +377,7 @@ form{
     padding: 20px;
 
 }
-.login-box{
+.Player-login-box{
     background: white;
     padding: 60px;
     border-radius: 50px;
@@ -389,14 +389,14 @@ form{
 
 /* Players template instructions */
 .Instruction-player {
-    font-family: Playwrite Deutschland Grundschrift    ;
+    font-family: 'Playfair Display', serif;
     text-align: center;
-    text-decoration: double;
-    font-size: xx-large;
-    color: rgb(231, 226, 226);
-    background-color: rgba(5, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 5px;
+    font-size: 2.5em;
+    color: #fff;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    padding: 15px;
+    border-radius: 8px;
+   
   
 }
 
@@ -658,16 +658,6 @@ details summary{
    text-align: center;
 }
 /*Ranking Template */
-.Ranking-body{
-    
-    background-image:url(https://media.gettyimages.com/id/1497163130/photo/london-england-a-fan-of-of-india-wearing-body-paint-in-the-colours-of-the-national-flag-of.jpg?s=612x612&w=0&k=20&c=n1FWqpWsFsVGEmwLilB4-BHPHQqG_-zE3vIVlIeMW7M=);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-
 .Ranking-grid{
     display: flex;
     flex-direction: column;
@@ -695,7 +685,7 @@ details summary{
     color: #000; 
 }
 
-button {
+.Ranking-button {
     padding: 15px 40px;
     border: none;
     border-radius: 50px;
@@ -710,7 +700,7 @@ button {
     text-transform: uppercase;
 }
 
-button:hover {
+.Ranking-button:hover {
     transform: translateY(-3px);
     opacity: 0.9;
     background: blue;
@@ -793,7 +783,176 @@ button:hover {
       background-color: #c0392b;
       box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
   }
-  
 
+      /* Layout Styles */
+      .layout-html, .layout-body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .layout-body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensure body takes full height */
+    }
+
+    /* Background Styles */
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(https://media.gettyimages.com/id/1336661954/photo/leeds-england-virat-kohli-of-india-looks-on-with-mohammed-shami-ajinkya-rahane-kl-rahul-and.jpg?s=612x612&w=0&k=20&c=2QtBdIjJIr6_i7ryac5NT8wcAHCzQSIpnDkOLgehodw=);
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    /* Content Styles */
+    .content {
+        flex: 1; /* Allow content to grow and push footer down */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Login Box Styles */      
+
+    /* Text Styles */
+/* Layout Styles */
+.layout-html, .layout-body {
+    height: 100%;
+    margin: 0;
+}
+
+.layout-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+/* Background Styles */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://media.gettyimages.com/id/1336661954/photo/leeds-england-virat-kohli-of-india-looks-on-with-mohammed-shami-ajinkya-rahane-kl-rahul-and.jpg?s=612x612&w=0&k=20&c=2QtBdIjJIr6_i7ryac5NT8wcAHCzQSIpnDkOLgehodw=);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+/* Login Box Styles */
+* Login Container */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+    padding: 20px;
+}
+
+/* Login Box */
+.login-box {
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1;
+}
+
+/* Header Text */
+.login-h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Subtext */
+.login-p {
+    font-size: 24px;
+    margin: 25px;
+    color: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5em;
+    font-weight: 300;
+}
+
+/* Input Fields */
+.login-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.login-input:focus {
+    border-color: #2dbeea;
+    box-shadow: 0 0 10px rgba(45, 190, 234, 0.2);
+}
+
+/* Login Button */
+.login-button {
+    background-color: #2dbeea;
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #8b51e2;
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* Flash Message Styles */
+.Flash {
+    width: 250px;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: larger;
+}
+
+/* Footer Styles */
+footer {
+    position: fixed;
+    background-color: #333;
+    color: white;
+    text-align: center; 
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+}
 
 

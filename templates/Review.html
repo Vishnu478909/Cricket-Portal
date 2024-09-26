@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review</title>
-    <link rel="stylesheet" href="/static/style.css"> 
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" href="/static/style.css">
 </head>
 <body class="home-style">
     <header>
@@ -38,11 +34,12 @@
                 <strong>On this website, comments that are inappropriate or irrelevant will be deleted.</strong><br>
                 Please ensure that comments contribute positively to the discussion.<br>
                 <strong>We trust you to use this feature wisely.</strong>
+            </span>
             </p>
         </div> <!-- Instruction grid layout -->
 
         <form class="Review-Form" action="/addreview" method="post">  <!-- Review submission form -->
-            <label class="Review-form" for="Review">Review</label>
+            <label class="login-p" for="Review">Review</label>
             <textarea class="Review-label" id="Review" name="Review" rows="5" cols="60" required></textarea><br>
 
             <label class="Review-label" for="rating">Rating</label>
@@ -55,7 +52,7 @@
                 <option value="0">0</option>
             </select><br><br>
 
-           <button class="Review-button">Submit</button>  <!-- Button to submit the review -->
+           <button class="Ranking-button">Submit</button>  <!-- Button to submit the review -->
         </form>
 
         <div class="Instructions-INFO">  <!-- Section for existing reviews -->
@@ -79,8 +76,5 @@
         </div>
     </main>
 
-    <footer>
-        <p class="footerp">&copy; Cricket Portal Vishnu 2024.</p>
-    </footer>
-</body>
-</html>
+  
+{% endblock %}

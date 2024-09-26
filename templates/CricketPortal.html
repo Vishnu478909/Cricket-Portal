@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "layout.html" %}
+{% block content %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/static/style.css"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cricket</title>
 </head>
 <body class="home-style">  <!-- Main body styled for the home page -->
     <h1 class="body">Cricket Portal</h1>  <!-- Main heading for the portal -->
-    
-    <nav class="Nav-bar">  <!-- Navigation bar -->
-        <strong><a href="/about">Home</a></strong>
-        <strong><a href="/Players"> Players</a></strong>
-        <strong><a href="/Ranking">Rankings</a></strong>
-        <strong><a href="/Record">Record</a></strong>
-        <strong><a href="/Stats">Statistics</a></strong>
-        <strong><a href="/Review">Review</a></strong>
-        <strong><a href="/login">Logout</a></strong>
-    </nav> 
 
     <div class="container">  <!--  container -->
         <div class="card">  <!-- Card for displaying norms -->
@@ -47,8 +36,5 @@
         </div>  <!-- End of card for displaying norms -->
     </div>  <!-- End of main content container -->
     
-    <footer>
-        <p class="footerp">&copy; Cricket Portal Vishnu 2024</p>  <!-- Footer text -->
-    </footer>
-</body>
-</html>
+   
+{% endblock %}

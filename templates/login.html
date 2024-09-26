@@ -2,32 +2,46 @@
 
 {% block title %}Login Page{% endblock %}
 
-{% block content %}
-<!-- Creating input box for login box -->
-<div class="login">  <!-- Login container -->
-    <div class="login-box">  <!-- Login box -->
-        <p class="">To view this cricket portal please log in to access it</p>
-        <h1>Login</h1>
-        <form method="POST" action="{{ url_for('login') }}">
-            <input type="text" name="username" placeholder="Username" required="Please enter username">
-            <input type="password" name="password" placeholder="Password" required="Please enter Password">
-            <button type="submit"> Login</button>
-        </form>
+{% block navbar %}
+{% endblock %}
 
-        <!-- Flashing messages -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="flash-messages">  <!-- Container for flash messages -->
-                    <ul>
-                        {% for message in messages %}
-                            <div class="Flash">{{ message }}</div>  <!-- Individual flash message -->
-                        {% endfor %}
-                    </ul>
-                </div>  <!-- End of flash messages container -->
-            {% endif %}
-        {% endwith %}
-        
-        <p class="loginp">Don't have an account? <a href="/register">Register here</a></p>
-    </div>  <!-- End of login box -->
-</div>  <!-- End of login container -->
+{% block content %}
+<link rel="stylesheet" href="/static/style.css">
+<div class="background">  
+    <div class="layout-body">  
+        <div class="content">  
+            <div class="login">  
+                <div class="login-box">  
+                    <span  class="login-p">Welcome to the Cricket Portal! Log in to explore an exciting and immersive experience!
+
+                    </span>
+                     <h1 class="login-h1">Login</h1>
+                    <form method="POST" action="{{ url_for('login') }}">
+                        <input class="login-input" type="text" name="username" placeholder="Username" required>
+                        <input class="login-input" type="password" name="password" placeholder="Password" required>
+                        <button class="login-button" type="submit">Login</button>
+                        <span class="login-p">Don't have an account please register <a href="/register">register here</a></span>
+                    </form>
+
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="flash-messages">
+                                <ul>
+                                    {% for message in messages %}
+                                        <div class="Flash">{{ message }}</div>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                 
+
+
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+</div>
+
+
 {% endblock %}
