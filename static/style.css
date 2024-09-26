@@ -30,6 +30,15 @@
     z-index: 1;
 }
 
+a{
+    color: #0e1012;
+    text-decoration: underline;
+}
+ a.hover{
+    text-decoration: underline;
+ }
+
+
 
 
 .Nav-bar a:hover{
@@ -47,16 +56,6 @@
     text-decoration: none;
 }
 
-.hero{
-    color: #26197c;
-    text-align: center;
-    padding: 100px 20px;
-    border-radius: 0 0 40px 40px;
-    margin: 20px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 12px (rgb(rgb(244, 171, 171), green, blue));
-}
 
 
 .container{
@@ -87,21 +86,7 @@ img.Image-container{
     margin-top: 20px;
 }
 
-footer{
-    position: fixed;
-    background-color: #333;
-    color: white;
-    text-align: center; 
-    padding: 10px;
-    width: 100%;
-    font-size: 14px;
 
-}
-
-footer p {
-    margin: 0;
-    font-size: 1em;
-}
 /* Error 404 */
 h1{
     font-size: 100px;
@@ -109,10 +94,6 @@ h1{
     color: #e74c3c;
 }
 
-.Home-Title{
-    font-size: xx-large;
-    font-weight: bolder;
-}
 
 .error-body{
     font-family: Arial, Helvetica, sans-serif;
@@ -181,6 +162,7 @@ a:hover{
    border-radius: 8px;
  box-shadow: 0  4px 8 px rgb(red, green, blue);
 }
+/* Rules, Infomation css */
 .Instructions-INFO{
     display: flex;
     justify-content: center;
@@ -191,7 +173,6 @@ a:hover{
 .cric{
   font-size: 20px;
   font-family: Cinzel;
-
     justify-content: space-around;
     flex-wrap: wrap;
     max-width: 400px;
@@ -212,7 +193,7 @@ tr {
 
 
 
-/* This css is used for the headimg of the template execpt Cricket portal */
+/* This css is used for the headimg of the templates */
 .stats1 {
     position: relative;
     top: 15px;
@@ -228,6 +209,7 @@ tr {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+/* Player Template CSS */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 .playersbody{
@@ -240,18 +222,8 @@ tr {
     color:#333;
     padding: 20px;
 }
-.playerh1{
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-.playerp{
-    text-align: center;
-    font-family: monospace;
-    text-transform: uppercase;
-    font-weight: 200;
-    font-size:  xx-large;
-}
+
+
 .h2{
     font-size: 1.5em;
     color: #2980b9;
@@ -261,22 +233,7 @@ tr {
     margin-top: 20px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-/* Players template */
-.playersbody {
-    align-items: center;
-    text-align: center;
-    font-family: 'Roboto', sans-serif; /* Use Roboto font */
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 20px;
-}
 
-.playerh1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
 
 .playerp {
     text-align: center;
@@ -286,14 +243,6 @@ tr {
     font-size: xx-large;
 }
 
-.h2 {
-    font-size: 1.5em;
-    color: #2980b9;
-    border-bottom: 2px solid #2980b9;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-}
 
 .player-container {
     display: flex;
@@ -425,7 +374,7 @@ form{
 
 .players-grid { position: relative;
     width: auto;
-    right: 5px;
+    left: -10px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
@@ -469,12 +418,7 @@ form{
 }
 
 
-.footerp{
-    color: white;
-    font-family:Georgia ;
-    font-size: larger;
-    text-align: center;
-}
+/*  Serach bar css for players */
 .Serach-bar {
     display: flex;
     justify-content: center;
@@ -491,7 +435,7 @@ form{
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-/*  Serach bar css for players */
+
 .Serach-bar input[type="text"] {
     padding: 10px;
     border: 2px solid #ccc;
@@ -645,12 +589,6 @@ form{
     color: #333;
 }
 
-h2, h3, h4 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-
 .content p{
     padding: 10px;
     background-color: black;
@@ -661,13 +599,6 @@ p{
     margin-bottom: 1em;
 }
 
-a{
-    color: #0e1012;
-    text-decoration: underline;
-}
- a.hover{
-    text-decoration: underline;
- }
 
 .recordsummary{
     font-size: 1.2em;
@@ -694,7 +625,7 @@ color: #1f1717;
 background-color: #fdf2f2;
 padding: auto;
 border-radius: 8px;
-box-shawdow: 0 4px 8px rgba ;  
+box-shadow: 0 4px 8px rgba ;  
 text-align: center;
 
 
@@ -707,7 +638,7 @@ text-align: center;
     color: #333;
     background-color: #f9f9f9;
     padding: auto;
-     box-shawdow: 0 4px 8px rgba ;  
+     box-shadow: 0 4px 8px rgba ;  
      border-radius: 8px;
      text-align: center; 
     }
@@ -730,7 +661,7 @@ details summary{
     padding: 10px;
     margin-top: 60px;
 }
-/* Brid,item css is used for Ranking and Player Template */
+/* Brid,item css is used for Ranking  */
 .Brid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -778,6 +709,7 @@ details summary{
     font-size: 150px;
 }
 
+/* Review Form */
 .Review-Form {
     background:whitesmoke;
       color: #333;
@@ -986,8 +918,12 @@ details summary{
 }
 
 /* Link Styles */
-a {
-    text-decoration: none;
+
+a { text-transform: capitalize;
+    font-family: fantasy;
+     font-size: larger;
+    color: #0056b3;
+    text-decoration: underline;
 }
 
 a:hover {
