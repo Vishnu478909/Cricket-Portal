@@ -58,8 +58,8 @@
         <div class="Instructions-INFO">  <!-- Section for existing reviews -->
             <h2 class="h2">Existing Reviews:</h2>
             <ul>
-                {% for review in Crickets %}
-                    <li class="cric">{{ review[1] }} - Rating: {{ review[2] }}</li>
+                {% for review in Crickets %} <br>
+                    <li class="cric">{{ review[1] }} <br> - Rating: {{ review[2] }}</li>
                 {% endfor %}
             </ul>
             {% with messages = get_flashed_messages() %}

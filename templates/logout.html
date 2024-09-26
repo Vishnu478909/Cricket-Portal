@@ -1,33 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %}Login Page{% endblock %}
+{% block title %}Logged Out{% endblock %}
 
 {% block content %}
-<!-- Creating input box for login box -->
-<div class="login">  <!-- Login container -->
-    <div class="login-box">  <!-- Login box -->
-        <p class="">To view this cricket portal please log in to access it</p>
-        <h1>Login</h1>
-        <form method="POST" action="{{ url_for('login') }}">
-            <input type="text" name="username" placeholder="Username" required="Please enter username">
-            <input type="password" name="password" placeholder="Password" required="Please enter Password">
-            <button type="submit"> Login</button>
-        </form>
-
-        <!-- Flashing messages -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="flash-messages">  <!-- Container for flash messages -->
-                    <ul>
-                        {% for message in messages %}
-                            <div class="Flash">{{ message }}</div>  <!-- Individual flash message -->
-                        {% endfor %}
-                    </ul>
-                </div>  <!-- End of flash messages container -->
-            {% endif %}
-        {% endwith %}
-        
-        <p class="loginp">Don't have an account? <a href="/register">Register here</a></p>
-    </div>  <!-- End of login box -->
-</div>  <!-- End of login container -->
+    <div class="login">  <!-- Login container -->
+        <div class="login-box">  <!-- Login box -->
+            <h1>You have been logged out.</h1>
+            <p>You will be redirected to the login page shortly.</p>
+        </div>  <!-- End of login box -->
+    </div>  <!-- End of login container -->
+    </script>
 {% endblock %}

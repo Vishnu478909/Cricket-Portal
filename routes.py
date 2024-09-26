@@ -2,6 +2,7 @@ import re
 import sqlite3
 import time
 from flask import Flask, render_template, request, redirect, session, url_for, flash, abort
+from werkzeug.security import generate_password_hash, check_password_hash  
 
 app = Flask(__name__)  # Create Flask object
 app.secret_key = 'your_secret_key'  # Secret key for session management
@@ -49,7 +50,8 @@ def login():
         # Clean up old attempts
         attempts = [t for t in attempts if current_time - t < 30]
         login_attempts[ip_address] = attempts
-        # If the user attempts more than 5 five times error message will be flashed with time restriction added
+        # If the user attempts more than 5 five
+        # times error message will be flashed with time restriction added
         if len(attempts) >= 5:
             flash("Too many login attempts. Please try again later in 30 seconds.")
             return render_template('login.html')
@@ -61,7 +63,7 @@ def login():
         user = cur.fetchone()
         conn.close()
 
-        if user and user[0] == password:  # Check plain text password
+        if user and check_password_hash(user[0], password):  # Check hashed password
             session['username'] = username  # Store username in session
             return redirect(url_for('about'))
         else:
@@ -71,50 +73,53 @@ def login():
     return render_template('login.html')  # Render login page for GET request
 
 
+# Register Route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':  # Check if the form was submitted
         username = request.form.get('username')  # Retrieve username from form
         password = request.form.get('password')  # Retrieve password from form
         confirm_password = request.form.get('confirm_password')  # Retrieve confirmed password
-        # Validate password and confirm password
+        # Validate passwords
         if password != confirm_password:
             flash("Passwords do not match.")
             return redirect(url_for('register'))
-        # The lenght of the password should be atleat 7 characters long
         elif len(password) < 7:
             flash("Password should be at least 7 characters long.")
             return redirect(url_for('register'))
-        # The lenght of the username be minimum 5 character long
         elif len(username) < 5:
             flash("The username should be at least 5 characters long.")
             return redirect(url_for('register'))
-        # the username should be below 10 characters
         elif len(username) > 10:
             flash("Username should be at most 10 characters.")
             return redirect(url_for('register'))
-        # Password should contain one chracters
         elif not re.search(r'[A-Z]', password):
             flash("Password should contain at least one uppercase letter.")
             return redirect(url_for('register'))
-
         try:
             conn = get_db_connections()  # Establish DB connection
+            conn.execute("PRAGMA journal_mode=WAL")  # Set WAL mode to prevent locks
             cur = conn.cursor()
-            # This query will be executed, when the users
-            # inserts their username and password
+            # Insert new user into the User table
             cur.execute("""
                         INSERT INTO User (username, password) VALUES (?, ?)""",
-                        (username, password))
+                        (username, generate_password_hash(password)))
             conn.commit()
             conn.close()
-            # after sucessfull registeration, user would be redirected to register sucessfull page
             return redirect(url_for('registration_successful'))
         except sqlite3.IntegrityError:
-            # This fucntion if the username is already stored in the database,
-            # it would prevent username being repeated
+            # Catch if the username already exists in the database
             flash("Username already exists. Please choose a different username.")
             return redirect(url_for('register'))
+        except sqlite3.OperationalError:
+            # Retry logic for database lock
+            flash("Database is busy. Please try again in a few moments.")
+            return redirect(url_for('register'))
+        finally:
+            # Ensure the connection is closed to avoid locking issues
+            if conn:
+                conn.close()
+
     return render_template('register.html')  # Render registration page
 
 
