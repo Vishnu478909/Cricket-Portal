@@ -17,11 +17,11 @@
 
         <form method="POST" action="{{ url_for('register') }}">
             <label class="form-label" for="username">Username:</label>
-            <input class="login-input" type="text" id="username" name="username" required placeholder="Enter your username">
+            <input class="login-input" type="text" id="username" name="username" required placeholder="Enter your username"><small id="passwordHelp" class="form-text"> Usename must be at least 5 characters long.</small>
             <br>
             <label class="form-label" for="password">Password:</label>
             <input class="login-input" type="password" id="password" name="password" required placeholder="Enter your password" aria-describedby="passwordHelp">
-            <small id="passwordHelp" class="form-text">Must be at least 8 characters long.</small>
+            <small id="passwordHelp" class="form-text"> Password Must be at least 8 characters long.</small>
             <br>
             <label class="form-label" for="confirm-password">Confirm Password:</label>
             <input class="login-input" type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
@@ -41,7 +41,7 @@
         {% endif %}
         {% endwith %}
 
-        <p class="login-p">Already have an account? <a href="/login" class="login-link">Login here</a></p>
+        <p class="login-p">Already have an account? <a class="login-a" href="/login" class="login-link">Login here</a></p>
     </div>  <!-- End of login box -->
 </div>  <!-- End of login container -->
 

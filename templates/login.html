@@ -12,17 +12,23 @@
         <div class="content">  
             <div class="login">  
                 <div class="login-box">  
-                    <span  class="login-p">Welcome to the Cricket Portal! Log in to explore an exciting and immersive experience!
+                    <!-- Welcome message -->
+                    <span class="login-p">Welcome to the Cricket Portal! Log in to explore an exciting and immersive experience!</span>
+                    
+                    <!-- Login heading -->
+                    <h1 class="login-h1">Login</h1>
 
-                    </span>
-                     <h1 class="login-h1">Login</h1>
+                    <!-- Login form -->
                     <form method="POST" action="{{ url_for('login') }}">
                         <input class="login-input" type="text" name="username" placeholder="Username" required>
                         <input class="login-input" type="password" name="password" placeholder="Password" required>
                         <button class="login-button" type="submit">Login</button>
-                        <span class="login-p">Don't have an account please register <a href="/register">register here</a></span>
+                        
+                        <!-- Registration link -->
+                        <span class="login-p">Don't have an account? Please register <a class="login-a" href="/register">here</a></span>
                     </form>
 
+                    <!-- Flash messages for feedback -->
                     {% with messages = get_flashed_messages() %}
                         {% if messages %}
                             <div class="flash-messages">
@@ -34,14 +40,9 @@
                             </div>
                         {% endif %}
                     {% endwith %}
-                 
-
-
-                </div>  
-            </div>  
-        </div>  
-    </div>  
-</div>
-
-
+                </div>  <!-- End of login box -->
+            </div>  <!-- End of login section -->
+        </div>  <!-- End of content -->
+    </div>  <!-- End of layout body -->
+</div>  <!-- End of background -->
 {% endblock %}

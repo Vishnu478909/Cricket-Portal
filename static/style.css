@@ -275,8 +275,9 @@ tr {
 }
 
 .players-container > .player {
-    width: 100%;
-    max-width: 250px; /* Adjust as needed */
+    width: 100%; /* Sets the width to take full space of the container */
+    max-width: 250px; /* Limits the maximum width to 250px; adjust as needed */
+    /* The '>' combinator means this rule applies only to .player elements that are direct children of .players-container */
 }
 
 .player-info:nth-child(2) {
@@ -286,14 +287,15 @@ tr {
 
 @media (max-width: 768px) {
     .players-container {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column; /* Stacks players vertically */
+        align-items: center; /* Centers players horizontally */
     }
     .player {
-        width: 100%;
-        max-width: 100%;
+        width: 100%; /* Makes player width full */
+        max-width: 100%; /* Ensures no overflow beyond container */
     }
 }
+
 
 /*Player add player form css */
 .player-form{
@@ -603,17 +605,18 @@ p{
 .recordsummary{
     font-size: 1.2em;
 }
-@media (max-width:480px){
-.recordh1{
-    font-size: 2em;
-    margin: 10px;
+@media (max-width: 480px) {
+    .recordh1 {
+        font-size: 2em; /* Sets the font size for headings */
+        margin: 10px; /* Adds margin around the heading */
+    }
+
+    .recordsummary {
+        font-size: 1.1em; /* Sets the font size for summaries */
+        padding: 10px; /* Adds padding inside the summary */
+    }
 }
 
-.recordsummary{
-font-size: 1.1em;
-padding: 10px;
-}
-}
 
 .recordh2{
 
@@ -919,14 +922,14 @@ details summary{
 
 /* Link Styles */
 
-a { text-transform: capitalize;
+.login-a { text-transform: capitalize;
     font-family: fantasy;
      font-size: larger;
     color: #0056b3;
     text-decoration: underline;
 }
 
-a:hover {
+.login-a {
     text-decoration: underline;
 }
 
@@ -945,6 +948,26 @@ a:hover {
     font-size: larger;
 }
 
+/* footer comments */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
 
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
 
 

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block content %}
 
+{% block content %}
 <link rel="stylesheet" href="/static/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <title>Players</title>
@@ -28,7 +28,8 @@
                 <strong>Player Data:</strong> Below, you'll find player statistics listed by team. You can explore their performance by looking at the number of matches, average, innings, runs, and wickets.
             </ul>
         </p>
-    <P class="Instruction-player">If you are unable to find your preferred player, kindly proceed to add them.</P>
+    <p class="Instruction-player">If you are unable to find your preferred player, kindly proceed to add them.</p>
+    
     <!-- Input box for adding player -->
     <div class="login">
         <div class="Player-login-box">
@@ -51,18 +52,18 @@
                 {% endif %}
                 {% endwith %}
             </form>
-        </div>
-    </div>
+        </div> <!-- End of Player-login-box -->
+    </div> <!-- End of login -->
 
     <p class="Instruction-player">Search for your favourite player's statistics! Enjoy the experience, and don’t forget to add your favourite player to the list!</p>
 
     <!-- Search Bar -->
     <div class="Serach-bar">
-        <form action="{{url_for('search')}}" method="GET">
+        <form action="{{ url_for('search') }}" method="GET">
             <input type="text" name="query" placeholder="Search for a player" required>
-            <button class="Ranking-button" type="Sumbit">Sumbit</button>
+            <button class="Ranking-button" type="submit">Submit</button>
         </form>
-    </div>
+    </div> <!-- End of Search-bar -->
 
     <!-- Loop through teams and display players -->
     {% for team, players in teams_data.items() %}
@@ -90,15 +91,14 @@
                 <div class="player-cell">{{ player[5] }}</div> <!-- Runs -->
                 <div class="player-cell">{{ player[6] }}</div> <!-- Wickets -->
             {% endfor %}
-        </div>
-    </div>
+        </div> <!-- End of players-grid -->
+    </div> <!-- End of team-section -->
     {% endfor %}
 
     <!-- Go Back Button -->
     <div class="go-back">
         <a class="Ranking-button" href="{{ url_for('Players') }}">Go Back to Players</a>
-    </div>
+    </div> <!-- End of go-back -->
 
 </body>
-
 {% endblock %}

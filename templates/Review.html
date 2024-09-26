@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block content %}
 <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -17,6 +18,7 @@
     
     <main>
         <h1 class="stats1">Review Time</h1>
+
         <div class="Instructions-INFO">  <!-- Instructions grid layout -->
             <h2 class="h2">Rules</h2>
             <p class="cric">
@@ -34,9 +36,8 @@
                 <strong>On this website, comments that are inappropriate or irrelevant will be deleted.</strong><br>
                 Please ensure that comments contribute positively to the discussion.<br>
                 <strong>We trust you to use this feature wisely.</strong>
-            </span>
             </p>
-        </div> <!-- Instruction grid layout -->
+        </div> <!-- End of Instructions grid layout -->
 
         <form class="Review-Form" action="/addreview" method="post">  <!-- Review submission form -->
             <label class="login-p" for="Review">Review</label>
@@ -52,13 +53,13 @@
                 <option value="0">0</option>
             </select><br><br>
 
-           <button class="Ranking-button">Submit</button>  <!-- Button to submit the review -->
+            <button class="Ranking-button">Submit</button>  <!-- Button to submit the review -->
         </form>
 
         <div class="Instructions-INFO">  <!-- Section for existing reviews -->
             <h2 class="h2">Existing Reviews:</h2>
             <ul>
-                {% for review in Crickets %} <br>
+                {% for review in Crickets %}
                     <li class="cric">{{ review[1] }} <br> - Rating: {{ review[2] }}</li>
                 {% endfor %}
             </ul>
@@ -70,11 +71,11 @@
                                 <li>{{ message }}</li>
                             {% endfor %}
                         </ul>
-                    </div>
+                    </div> <!-- End of flash-messages -->
                 {% endif %}
             {% endwith %}
-        </div>
+        </div> <!-- End of Instructions-INFO (existing reviews) -->
     </main>
 
-  
+</body>
 {% endblock %}
